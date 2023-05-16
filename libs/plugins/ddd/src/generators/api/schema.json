@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "Api",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "",
+      "x-prompt": "What domain would you like to use?"
+    },
+    "name": {
+      "type": "string",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "description": "The name of the sub-domain which is going to consume this api"
+    }
+  },
+  "required": ["domain", "name"]
+}
