@@ -53,16 +53,22 @@
     "@nx/angular:component": {
       "style": "scss",
       "skipTests": true,
-      "changeDetection": "OnPush"
+      "inlineTemplate": true,
+      "inlineStyle": true,
+      "standalone": true,
+      "changeDetection": "OnPush",
+      "flat": "true"
     },
     "@nx/angular:service": {
       "skipTests": true
     },
     "@nx/angular:directive": {
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@nx/angular:pipe": {
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     }
   }
 }

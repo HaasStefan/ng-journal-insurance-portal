@@ -12,10 +12,10 @@ export class <%=domainClassName%>DataService {
   readonly #baseUrl = inject(BaseUrl);
 
   get(id: string) {
-    return this.#http.get<<%=domainClassName%>Type>(`${this.#baseUrl}/<%=domainClassName%>/${id}`);
+    return this.#http.get<<%=domainClassName%>Type>(`${this.#baseUrl}/<%=domainClassName.charAt(0).toLowerCase() + domainClassName.slice(1)%>/${id}`);
   }
 
   getAll() {
-    return this.#http.get<<%=domainClassName%>Type[]>(`${this.#baseUrl}/<%=domainClassName%>`);
+    return this.#http.get<<%=domainClassName%>Type[]>(`${this.#baseUrl}/<%=domainClassName.charAt(0).toLowerCase() + domainClassName.slice(1)%>`);
   }
 }
