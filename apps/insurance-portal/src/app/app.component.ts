@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BaseUrl } from '@ng-journal/shared/utils';
 
 @Component({
   selector: 'ng-journal-root',
@@ -7,8 +8,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
   <p class="text-2xl">app works!</p>
+
+  {{ baseUrl }}
   `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  readonly baseUrl = inject(BaseUrl);
+}

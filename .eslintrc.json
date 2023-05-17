@@ -15,7 +15,13 @@
               {
                 "sourceTag": "type:app",
                 "onlyDependOnLibsWithTags": [
-                  "type:routes"
+                  "type:routes",
+                  "type:api",
+                  "type:feature",
+                  "type:ui",
+                  "type:data-access",
+                  "type:utils",
+                  "type:models"
                 ]
               },
               {
