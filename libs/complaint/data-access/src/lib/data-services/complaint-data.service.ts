@@ -16,6 +16,6 @@ export class ComplaintDataService {
   }
 
   getAll() {
-    return this.#http.get<ComplaintType[]>(`${this.#baseUrl}/complaint`);
+    return this.#http.get<ComplaintType[]>(`${this.#baseUrl}/complaints`);
   }
 }

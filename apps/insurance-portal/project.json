@@ -4,7 +4,7 @@
   "projectType": "application",
   "prefix": "ng-journal",
   "sourceRoot": "apps/insurance-portal/src",
-  "tags": [],
+  "tags": ["type:app"],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

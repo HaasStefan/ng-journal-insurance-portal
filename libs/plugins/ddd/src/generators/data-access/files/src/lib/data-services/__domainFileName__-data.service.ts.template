@@ -16,6 +16,6 @@ export class <%=domainClassName%>DataService {
   }
 
   getAll() {
-    return this.#http.get<<%=domainClassName%>Type[]>(`${this.#baseUrl}/<%=domainClassName.charAt(0).toLowerCase() + domainClassName.slice(1)%>`);
+    return this.#http.get<<%=domainClassName%>Type[]>(`${this.#baseUrl}/<%=domainClassName.charAt(0).toLowerCase() + domainClassName.slice(1)%>s`);
   }
 }

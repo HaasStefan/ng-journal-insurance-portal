@@ -10,6 +10,6 @@ import { CustomerFacadeService } from '@ng-journal/customer/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ListComponent {
+export class ListComponent {
   readonly #customerFacade = inject(CustomerFacadeService);
 }

@@ -16,6 +16,6 @@ export class ClaimDataService {
   }
 
   getAll() {
-    return this.#http.get<ClaimType[]>(`${this.#baseUrl}/claim`);
+    return this.#http.get<ClaimType[]>(`${this.#baseUrl}/claims`);
   }
 }

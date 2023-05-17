@@ -10,6 +10,6 @@ import { ComplaintFacadeService } from '@ng-journal/complaint/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ListComponent {
+export class ListComponent {
   readonly #complaintFacade = inject(ComplaintFacadeService);
 }

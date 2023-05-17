@@ -16,6 +16,6 @@ export class ContractDataService {
   }
 
   getAll() {
-    return this.#http.get<ContractType[]>(`${this.#baseUrl}/contract`);
+    return this.#http.get<ContractType[]>(`${this.#baseUrl}/contracts`);
   }
 }

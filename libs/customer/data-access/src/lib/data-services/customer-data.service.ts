@@ -16,6 +16,6 @@ export class CustomerDataService {
   }
 
   getAll() {
-    return this.#http.get<CustomerType[]>(`${this.#baseUrl}/customer`);
+    return this.#http.get<CustomerType[]>(`${this.#baseUrl}/customers`);
   }
 }

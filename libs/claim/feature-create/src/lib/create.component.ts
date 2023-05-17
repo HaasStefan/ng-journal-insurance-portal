@@ -10,6 +10,6 @@ import { ClaimFacadeService } from '@ng-journal/claim/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class CreateComponent {
+export class CreateComponent {
   readonly #claimFacade = inject(ClaimFacadeService);
 }

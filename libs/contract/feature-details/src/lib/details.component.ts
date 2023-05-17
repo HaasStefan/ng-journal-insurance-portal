@@ -10,6 +10,6 @@ import { ContractFacadeService } from '@ng-journal/contract/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class DetailsComponent {
+export class DetailsComponent {
   readonly #contractFacade = inject(ContractFacadeService);
 }

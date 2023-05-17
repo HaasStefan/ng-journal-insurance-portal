@@ -10,6 +10,6 @@ import { <%=domainClassName%>FacadeService } from '@ng-journal/<%=domain%>/data-
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class <%=componentClassName%>Component {
+export class <%=componentClassName%>Component {
   readonly #<%=domainClassName.toLowerCase()%>Facade = inject(<%=domainClassName%>FacadeService);
 }

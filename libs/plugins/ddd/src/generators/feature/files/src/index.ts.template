@@ -1,1 +1,1 @@
-export * from './lib/<%=componentName%>/<%=componentName%>.component';
+export * from './lib/<%=componentName%>.component';

@@ -1,7 +1,35 @@
+import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
+import { ContractFacadeService } from '@ng-journal/contract/data-access';
 
 export const routes: Routes = [
-  // add routes here
+  {
+    path: '',
+    children: [
+      {
+        path: ':id',
+        loadComponent: async () =>
+          (await import('@ng-journal/contract/feature-details'))
+            .DetailsComponent,
+      },
+      {
+        path: 'list',
+        resolve: {
+          list: async () => inject(ContractFacadeService).loadAll()
+        },
+        loadComponent: async () =>
+          (await import('@ng-journal/contract/feature-list')).ListComponent,
+      },
+      {
+        path: 'create',
+        loadComponent: async () =>
+          (await import('@ng-journal/contract/feature-create')).CreateComponent,
+      },
+      {
+        path: 'edit',
+        loadComponent: async () =>
+          (await import('@ng-journal/contract/feature-edit')).EditComponent,
+      },
+    ],
+  },
 ];
-
-export default routes;
