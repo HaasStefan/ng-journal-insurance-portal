@@ -64,6 +64,25 @@
               {
                 "sourceTag": "domain:shared",
                 "onlyDependOnLibsWithTags": ["domain:shared"]
+              },
+              {
+                "sourceTag": "domain:contract",
+                "onlyDependOnLibsWithTags": ["domain:contract", "domain:shared"]
+              },
+              {
+                "sourceTag": "domain:claim",
+                "onlyDependOnLibsWithTags": ["domain:claim", "domain:shared"]
+              },
+              {
+                "sourceTag": "domain:complaint",
+                "onlyDependOnLibsWithTags": [
+                  "domain:complaint",
+                  "domain:shared"
+                ]
+              },
+              {
+                "sourceTag": "domain:customer",
+                "onlyDependOnLibsWithTags": ["domain:customer", "domain:shared"]
               }
             ]
           }

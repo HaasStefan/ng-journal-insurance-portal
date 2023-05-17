@@ -1,0 +1,34 @@
+{
+  "name": "customer-feature-list",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/customer/feature-list/src",
+  "prefix": "ng-journal",
+  "tags": ["type:feature", "domain:customer"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/customer/feature-list/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/customer/feature-list/**/*.ts",
+          "libs/customer/feature-list/**/*.html"
+        ]
+      }
+    }
+  }
+}

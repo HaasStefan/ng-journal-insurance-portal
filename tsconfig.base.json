@@ -15,7 +15,67 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"]
+      "@ng-journal/claim/data-access": ["libs/claim/data-access/src/index.ts"],
+      "@ng-journal/claim/feature-create": [
+        "libs/claim/feature-create/src/index.ts"
+      ],
+      "@ng-journal/claim/feature-details": [
+        "libs/claim/feature-details/src/index.ts"
+      ],
+      "@ng-journal/claim/feature-edit": [
+        "libs/claim/feature-edit/src/index.ts"
+      ],
+      "@ng-journal/claim/feature-list": [
+        "libs/claim/feature-list/src/index.ts"
+      ],
+      "@ng-journal/claim/models": ["libs/claim/models/src/index.ts"],
+      "@ng-journal/claim/routes": ["libs/claim/routes/src/index.ts"],
+      "@ng-journal/claim/ui": ["libs/claim/ui/src/index.ts"],
+      "@ng-journal/complaint/data-access": [
+        "libs/complaint/data-access/src/index.ts"
+      ],
+      "@ng-journal/complaint/feature-create": [
+        "libs/complaint/feature-create/src/index.ts"
+      ],
+      "@ng-journal/complaint/feature-details": [
+        "libs/complaint/feature-details/src/index.ts"
+      ],
+      "@ng-journal/complaint/feature-list": [
+        "libs/complaint/feature-list/src/index.ts"
+      ],
+      "@ng-journal/complaint/models": ["libs/complaint/models/src/index.ts"],
+      "@ng-journal/complaint/routes": ["libs/complaint/routes/src/index.ts"],
+      "@ng-journal/complaint/ui": ["libs/complaint/ui/src/index.ts"],
+      "@ng-journal/contract/data-access": [
+        "libs/contract/data-access/src/index.ts"
+      ],
+      "@ng-journal/contract/feature-create": [
+        "libs/contract/feature-create/src/index.ts"
+      ],
+      "@ng-journal/contract/feature-details": [
+        "libs/contract/feature-details/src/index.ts"
+      ],
+      "@ng-journal/contract/feature-edit": [
+        "libs/contract/feature-edit/src/index.ts"
+      ],
+      "@ng-journal/contract/feature-list": [
+        "libs/contract/feature-list/src/index.ts"
+      ],
+      "@ng-journal/contract/models": ["libs/contract/models/src/index.ts"],
+      "@ng-journal/contract/routes": ["libs/contract/routes/src/index.ts"],
+      "@ng-journal/contract/ui": ["libs/contract/ui/src/index.ts"],
+      "@ng-journal/customer/feature-details": [
+        "libs/customer/feature-details/src/index.ts"
+      ],
+      "@ng-journal/customer/feature-list": [
+        "libs/customer/feature-list/src/index.ts"
+      ],
+      "@ng-journal/customer/models": ["libs/customer/models/src/index.ts"],
+      "@ng-journal/customer/routes": ["libs/customer/routes/src/index.ts"],
+      "@ng-journal/customer/ui": ["libs/customer/ui/src/index.ts"],
+      "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"],
+      "@ng-journal/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@ng-journal/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
