@@ -4,15 +4,20 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "domain": {
       "type": "string",
       "description": "",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use?"
+      "x-prompt": "What domain would you like to use?"
+    },
+    "name": {
+      "type": "string",
+      "default": "data-access",
+      "description": "The name of the library"
     }
   },
-  "required": ["name"]
+  "required": ["domain"]
 }
