@@ -13,8 +13,63 @@
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:routes",
+                "onlyDependOnLibsWithTags": ["type:feature", "type:data-access"]
+              },
+              {
+                "sourceTag": "type:api",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:ui",
+                  "type:data-access",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:feature",
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:ui",
+                  "type:data-access",
+                  "type:util",
+                  "type:api"
+                ]
+              },
+              {
+                "sourceTag": "type:ui",
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:data-access",
+                  "type:util"
+                ]
+              },
+              {
+                "sourceTag": "type:data-access",
+                "onlyDependOnLibsWithTags": ["type:util", "type:api"]
+              },
+              {
+                "sourceTag": "type:util",
+                "onlyDependOnLibsWithTags": ["type:models"]
+              },
+              {
+                "sourceTag": "type:models",
+                "onlyDependOnLibsWithTags": []
+              },
+              {
+                "sourceTag": "domain:shared",
+                "onlyDependOnLibsWithTags": ["domain:shared"]
+              },
+              {
+                "sourceTag": "domain:y",
+                "onlyDependOnLibsWithTags": [
+                  "domain:y",
+                  "domain:shared",
+                  "domain:y/undefined"
+                ]
+              },
+              {
+                "sourceTag": "domain:claim",
+                "onlyDependOnLibsWithTags": ["domain:claim", "domain:shared"]
               }
             ]
           }

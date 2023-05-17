@@ -1,0 +1,17 @@
+import { Injectable, inject } from '@angular/core';
+import { ComponentStore } from '@ngrx/component-store';
+import { <%=domainClassName%>State } from '../state/<%=domainFileName%>-state.model';
+import { <%=domainClassName%>DataService } from '../data-services/<%=domainFileName%>-data.service';
+
+const initialState: <%=domainClassName%>State = {};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class <%=domainClassName%>FacadeService extends ComponentStore<<%=domainClassName%>State> {
+  readonly #<%=domainClassName.charAt(0).toLowerCase() + domainClassName.slice(1)%>DataService = inject(<%=domainClassName%>DataService);
+
+  constructor() {
+    super(initialState);
+  }
+}

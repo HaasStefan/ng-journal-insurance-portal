@@ -1,1 +1,2 @@
-const variable = "<%= name %>";
+
+// add your exports here

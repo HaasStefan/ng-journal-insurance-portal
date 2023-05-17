@@ -1,4 +1,3 @@
-export interface ApiGeneratorSchema {
+export type ApiGeneratorSchema = GeneratorSchema & {
   name: string;
-  domain: string;
-}
+};
