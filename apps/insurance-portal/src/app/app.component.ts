@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseUrl } from '@ng-journal/shared/utils';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet],
   template: `
   <p class="text-2xl">app works!</p>
 
-  {{ baseUrl }}
+  <router-outlet></router-outlet>
   `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,

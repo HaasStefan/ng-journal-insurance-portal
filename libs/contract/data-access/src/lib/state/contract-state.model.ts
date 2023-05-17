@@ -1,2 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ContractState {}
+import { Contract } from '@ng-journal/contract/models';
+
+export interface ContractState {
+  contracts: Contract[];
+}

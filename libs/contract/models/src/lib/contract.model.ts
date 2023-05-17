@@ -1,2 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Contract {}
+import { ContractStatus } from './contrac-status.model';
+
+export interface Contract {
+  id: string;
+  customer: {
+    label: string;
+    phone: string;
+  };
+  claims: string[];
+  status: ContractStatus;
+}

@@ -7,12 +7,6 @@ export const routes: Routes = [
     path: '',
     children: [
       {
-        path: ':id',
-        loadComponent: async () =>
-          (await import('@ng-journal/contract/feature-details'))
-            .DetailsComponent,
-      },
-      {
         path: 'list',
         resolve: {
           list: async () => inject(ContractFacadeService).loadAll()
@@ -29,6 +23,12 @@ export const routes: Routes = [
         path: 'edit',
         loadComponent: async () =>
           (await import('@ng-journal/contract/feature-edit')).EditComponent,
+      },
+      {
+        path: ':id',
+        loadComponent: async () =>
+          (await import('@ng-journal/contract/feature-details'))
+            .DetailsComponent,
       },
     ],
   },
