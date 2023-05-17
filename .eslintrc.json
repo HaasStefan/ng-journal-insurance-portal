@@ -22,7 +22,8 @@
                   "type:feature",
                   "type:ui",
                   "type:data-access",
-                  "type:util"
+                  "type:util",
+                  "type:models"
                 ]
               },
               {
@@ -32,20 +33,25 @@
                   "type:ui",
                   "type:data-access",
                   "type:util",
-                  "type:api"
+                  "type:api",
+                  "type:models"
                 ]
               },
               {
                 "sourceTag": "type:ui",
                 "onlyDependOnLibsWithTags": [
                   "type:ui",
-                  "type:data-access",
-                  "type:util"
+                  "type:util",
+                  "type:models"
                 ]
               },
               {
                 "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": ["type:util", "type:api"]
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:api",
+                  "type:models"
+                ]
               },
               {
                 "sourceTag": "type:util",
@@ -58,18 +64,6 @@
               {
                 "sourceTag": "domain:shared",
                 "onlyDependOnLibsWithTags": ["domain:shared"]
-              },
-              {
-                "sourceTag": "domain:y",
-                "onlyDependOnLibsWithTags": [
-                  "domain:y",
-                  "domain:shared",
-                  "domain:y/undefined"
-                ]
-              },
-              {
-                "sourceTag": "domain:claim",
-                "onlyDependOnLibsWithTags": ["domain:claim", "domain:shared"]
               }
             ]
           }
