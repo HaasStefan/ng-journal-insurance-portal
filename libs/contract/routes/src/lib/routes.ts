@@ -20,7 +20,7 @@ export const routes: Routes = [
           (await import('@ng-journal/contract/feature-create')).CreateComponent,
       },
       {
-        path: 'edit',
+        path: 'edit/:id',
         loadComponent: async () =>
           (await import('@ng-journal/contract/feature-edit')).EditComponent,
       },
