@@ -45,21 +45,19 @@ function normalizeOptions(
   };
 }
 
-function updateConsumerDepConst(tree: Tree, options: ApiGeneratorSchema) {
+function updateConsumerDepConst(tree: Tree, options: NormalizedSchema) {
   updateDepConst(
     tree,
     (depConst: { sourceTag: string; onlyDependOnLibsWithTags: string[] }[]) => {
-      const index = depConst.findIndex(
-        (d) => d.sourceTag === `domain:${options.domain}`
-      );
+      const index = depConst.findIndex((d) => d.sourceTag === `domain:${options.consumer}`);
 
       if (index && !!depConst[index]) {
         depConst[index] = {
           ...depConst[index],
           onlyDependOnLibsWithTags: [
             ...depConst[index].onlyDependOnLibsWithTags,
-            `domain:${options.domain}/${options.consumer}`,
-          ],
+            `domain:${names(options.domain).fileName}/${options.name}`
+          ]
         };
       }
     }
@@ -79,7 +77,7 @@ export default async function (tree: Tree, options: ApiGeneratorSchema) {
   addFiles(tree, normalizedOptions, __dirname);
 
   updateDomainDepConst(tree, normalizedOptions.domain);
-  updateConsumerDepConst(tree, options);
+  updateConsumerDepConst(tree, normalizedOptions);
 
   await formatFiles(tree);
 }

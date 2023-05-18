@@ -1,5 +1,5 @@
-import { Contract } from '@ng-journal/contract/models';
+import { ContractViewModel } from './contract-view.model';
 
 export interface ContractState {
-  contracts: Contract[];
+  contracts: ContractViewModel[];
 }

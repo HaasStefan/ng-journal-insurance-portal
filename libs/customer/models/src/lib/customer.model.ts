@@ -1,2 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Customer {}
+import { Address } from './address.model';
+
+export interface Customer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  address: Address;
+}

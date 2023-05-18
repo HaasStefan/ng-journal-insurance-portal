@@ -64,6 +64,9 @@
       "@ng-journal/contract/models": ["libs/contract/models/src/index.ts"],
       "@ng-journal/contract/routes": ["libs/contract/routes/src/index.ts"],
       "@ng-journal/contract/ui": ["libs/contract/ui/src/index.ts"],
+      "@ng-journal/customer/api-contract": [
+        "libs/customer/api-contract/src/index.ts"
+      ],
       "@ng-journal/customer/data-access": [
         "libs/customer/data-access/src/index.ts"
       ],

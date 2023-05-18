@@ -79,7 +79,11 @@
               },
               {
                 "sourceTag": "domain:contract",
-                "onlyDependOnLibsWithTags": ["domain:contract", "domain:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "domain:contract",
+                  "domain:shared",
+                  "domain:customer/api-contract"
+                ]
               },
               {
                 "sourceTag": "domain:claim",

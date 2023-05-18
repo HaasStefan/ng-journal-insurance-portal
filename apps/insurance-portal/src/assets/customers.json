@@ -1,3 +1,15 @@
 [
-    
+  {
+    "id": "2da42b88-cd9b-4cfa-8dad-70a2fba6fe83",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john@doe.com",
+    "phone": "1234567890",
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "state": "NY",
+      "zip": "12345"
+    }
+  }
 ]
