@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+npx pretty-quick --staged --pattern "**/*.*js"
+npx pretty-quick --staged --pattern "**/*.*ts"
+npx pretty-quick --staged --pattern "**/*.*html"
+npx pretty-quick --staged --pattern "**/*.*scss"
+npx pretty-quick --staged --pattern "**/*.*json"
 npx nx affected:lint --parallel
