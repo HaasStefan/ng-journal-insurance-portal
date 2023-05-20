@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -33,7 +38,11 @@ import { RouterLink } from '@angular/router';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   readonly #contractFacade = inject(ContractFacadeService);
   readonly contracts$ = this.#contractFacade.contracts$;
+
+  ngOnInit(): void {
+    this.#contractFacade.loadAll();
+  }
 }
