@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CapitalizePipe } from '@ng-journal/shared/utils-pipes';
+import { CapitalizePipe } from '@ng-journal/shared/ui-pipes';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface RouteMetaData {

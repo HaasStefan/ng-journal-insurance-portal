@@ -12,6 +12,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { primeNgModules } from '@ng-journal/shared/utils';
+import {
+  ContractStatusChipComponent,
+  ContractStatusChipStyle,
+} from './contract-status-chip.component';
 
 export type ContractForm = ReturnType<typeof createContractForm>;
 
@@ -37,11 +41,19 @@ export type CustomerOption = {
 @Component({
   selector: 'ng-journal-contract-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ...primeNgModules],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ContractStatusChipComponent,
+    ...primeNgModules,
+  ],
   template: ` <form [formGroup]="form" class="grid">
     <div class="col-6 flex flex-column gap-2">
       <label htmlFor="status">Status</label>
-      <span id="status" class="font-bold"> Pending </span>
+      <ng-journal-contract-status-chip
+        label="Pending"
+        [style]="pendingStatus"
+      />
     </div>
 
     <div class="col-6 flex flex-column gap-2">
@@ -98,4 +110,5 @@ export type CustomerOption = {
 export class ContractFormComponent {
   @Input({ required: true }) form!: ContractForm;
   @Input({ required: true }) customers!: CustomerOption[];
+  readonly pendingStatus = ContractStatusChipStyle.Pending;
 }

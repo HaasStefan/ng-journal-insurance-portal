@@ -87,8 +87,11 @@
       "@ng-journal/customer/ui": ["libs/customer/ui/src/index.ts"],
       "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"],
       "@ng-journal/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@ng-journal/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@ng-journal/shared/utils-pipes": ["libs/shared/utils-pipes/src/index.ts"]
+      "@ng-journal/shared/ui-directives": [
+        "libs/shared/ui-directives/src/index.ts"
+      ],
+      "@ng-journal/shared/ui-pipes": ["libs/shared/ui-pipes/src/index.ts"],
+      "@ng-journal/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -4,6 +4,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { ChipModule } from 'primeng/chip';
 
 export const primeNgModules: Type<unknown>[] = [
   ButtonModule,
@@ -11,4 +12,5 @@ export const primeNgModules: Type<unknown>[] = [
   InputTextModule,
   CalendarModule,
   DropdownModule,
+  ChipModule,
 ];
