@@ -1,5 +1,5 @@
 export enum ContractStatus {
-  Draft = 'Draft',
+  Pending = 'Pending',
   Active = 'Active',
   Inactive = 'Inactive',
 }

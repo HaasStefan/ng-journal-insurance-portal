@@ -17,12 +17,15 @@ export enum ContractStatusChipStyle {
     `
       ::ng-deep .active .p-chip {
         background-color: green;
+        color: white;
       }
       ::ng-deep .inactive .p-chip {
         background-color: red;
+        color: white;
       }
       ::ng-deep .pending .p-chip {
         background-color: orange;
+        color: white;
       }
     `,
   ],

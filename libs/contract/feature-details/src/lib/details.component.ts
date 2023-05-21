@@ -12,11 +12,22 @@ import {
   HyperlinkComponent,
 } from '@ng-journal/shared/ui';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ContractStatusChipComponent,
+  ContractStatusChipStylePipe,
+} from '@ng-journal/contract/ui';
 
 @Component({
   selector: 'ng-journal-details',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, CardComponent, HyperlinkComponent],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    CardComponent,
+    HyperlinkComponent,
+    ContractStatusChipComponent,
+    ContractStatusChipStylePipe,
+  ],
   template: `
     <ng-journal-header
       title="Contract Details"
@@ -26,13 +37,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 
     <ng-container *ngIf="contract$ | async as contract">
       <ng-journal-card additionalClasses="grid">
+        <div class="col-3 font-bold">Status:</div>
+        <div class="col-3">
+          <ng-journal-contract-status-chip
+            [label]="contract.status"
+            [style]="contract.status | contractStatusChipStyle"
+          />
+        </div>
+
         <div class="col-3 font-bold">Policynumber:</div>
         <div class="col-3">{{ contract.policyNumber }}</div>
         <div class="col-3 font-bold">Insurance Start:</div>
         <div class="col-3">{{ contract.insuranceStartOn | date }}</div>
 
-        <div class="col-3 font-bold">Status:</div>
-        <div class="col-3">{{ contract.status }}</div>
         <div class="col-3 font-bold">Customer:</div>
         <div class="col-3">
           <ng-journal-hyperlink [route]="['/customers', contract.customer?.id]">
@@ -52,9 +69,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DetailsComponent {
   readonly #contractFacade = inject(ContractFacadeService);
-  readonly contract$ = this.#contractFacade.selectedContract$;
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
+  readonly contract$ = this.#contractFacade.selectedContract$;
   #id!: string;
   @Input() set id(id: string) {
     this.#contractFacade.loadContract(id);

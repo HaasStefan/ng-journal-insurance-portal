@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
 import { Contract } from '@ng-journal/contract/models';
-import { map } from 'rxjs';
+import { delay, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +19,10 @@ export class ContractDataService {
 
   getAll() {
     return this.#http.get<Contract[]>(`${this.#baseUrl}/assets/contracts.json`);
+  }
+
+  postContract(contract: Contract) {
+    // fake http call
+    return of(contract).pipe(delay(1000));
   }
 }

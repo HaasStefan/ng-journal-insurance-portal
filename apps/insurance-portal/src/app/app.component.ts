@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseUrl } from '@ng-journal/shared/utils';
+import { BaseUrl, primeNgModules } from '@ng-journal/shared/utils';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
   selector: 'ng-journal-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, ...primeNgModules],
   template: `
+    <p-toast />
+
     <div class="flex flex-column h-full">
       <div
         class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center"

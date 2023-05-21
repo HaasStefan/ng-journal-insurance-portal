@@ -3,9 +3,13 @@ import {
   Component,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContractFacadeService } from '@ng-journal/contract/data-access';
+import {
+  ContractFacadeService,
+  ContractViewModel,
+} from '@ng-journal/contract/data-access';
 import {
   ButtonComponent,
   CardComponent,
@@ -16,8 +20,10 @@ import {
   createContractForm,
   CustomerOption,
 } from '@ng-journal/contract/ui';
-import { map } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
+import { ContractStatus } from '@ng-journal/contract/models';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'ng-journal-create',
@@ -44,6 +50,8 @@ import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
         style="primary"
         type="submit"
         width="100%"
+        [action]="action()"
+        (clickEvent)="createContract()"
         [disabled]="form.invalid"
       />
     </div>`,
@@ -52,6 +60,7 @@ import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
 })
 export class CreateComponent implements OnInit {
   readonly #contractFacade = inject(ContractFacadeService);
+  readonly #messageService = inject(MessageService);
   readonly customers$ = this.#contractFacade.customers$.pipe(
     map((customers) =>
       customers.map((customer) => {
@@ -64,8 +73,42 @@ export class CreateComponent implements OnInit {
     )
   );
   readonly form = createContractForm();
+  readonly action = signal<Observable<unknown> | null>(null);
 
   ngOnInit() {
     this.#contractFacade.loadAllCustomers();
+  }
+
+  createContract() {
+    const { insuranceStartOn, customer, policyNumber } =
+      this.form.getRawValue();
+
+    if (!!insuranceStartOn && !!customer && !!policyNumber) {
+      const contract: ContractViewModel = {
+        insuranceStartOn,
+        customer: {
+          ...customer,
+          phone: '',
+          email: '',
+        },
+        claims: [],
+        id: '',
+        policyNumber,
+        status: ContractStatus.Pending,
+      };
+
+      this.action.set(
+        this.#contractFacade.createContract(contract).pipe(
+          tap(() => this.form.reset()),
+          tap(() =>
+            this.#messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Contract created successfully',
+            })
+          )
+        )
+      );
+    }
   }
 }

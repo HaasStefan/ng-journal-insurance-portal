@@ -8,15 +8,26 @@ import { CommonModule } from '@angular/common';
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { RouterLink } from '@angular/router';
+import {
+  ContractStatusChipComponent,
+  ContractStatusChipStylePipe,
+} from '@ng-journal/contract/ui';
 
 @Component({
   selector: 'ng-journal-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, ...primeNgModules],
+  imports: [
+    CommonModule,
+    RouterLink,
+    ...primeNgModules,
+    ContractStatusChipComponent,
+    ContractStatusChipStylePipe,
+  ],
   template: ` <p-table [value]="(contracts$ | async) ?? []">
     <ng-template pTemplate="header">
       <tr>
         <th>Policynumber</th>
+        <th>Status</th>
         <th>Insurance Start On</th>
         <th>Customer</th>
         <th>Phone</th>
@@ -27,6 +38,12 @@ import { RouterLink } from '@angular/router';
     <ng-template pTemplate="body" let-contract>
       <tr [routerLink]="['/', 'contract', contract.id]">
         <td>{{ contract.policyNumber }}</td>
+        <td>
+          <ng-journal-contract-status-chip
+            [label]="contract.status"
+            [style]="contract.status | contractStatusChipStyle"
+          />
+        </td>
         <td>{{ contract.insuranceStartOn | date }}</td>
         <td>{{ contract.customer.label }}</td>
         <td>{{ contract.customer.phone }}</td>

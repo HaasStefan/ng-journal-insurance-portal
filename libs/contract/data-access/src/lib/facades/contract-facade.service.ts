@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
-import { filter, map, Observable, of, pipe, switchMap } from 'rxjs';
+import { filter, map, Observable, of, pipe, switchMap, tap } from 'rxjs';
 import { CustomerDataService } from '@ng-journal/customer/api-contract';
-import { Customer } from '@ng-journal/contract/models';
+import { Contract, Customer } from '@ng-journal/contract/models';
 import { ContractViewModel } from '../state/contract-view.model';
 
 const initialState: ContractState = {
@@ -22,8 +22,15 @@ export class ContractFacadeService extends ComponentStore<ContractState> {
   readonly contracts$ = this.select((state) => state.contracts);
   readonly customers$ = this.select((state) => state.customers);
   readonly selectedContract$ = this.select((state) => state.selectedContract);
+  #loaded = false;
 
-  readonly loadAll = this.effect<void>(pipe(this.#loadAll()));
+  readonly loadAll = this.effect<void>(
+    pipe(
+      filter(() => !this.#loaded),
+      this.#loadAll(),
+      tap(() => (this.#loaded = true))
+    )
+  );
 
   readonly loadContract = this.effect<string>((id$) =>
     id$.pipe(
@@ -64,6 +71,25 @@ export class ContractFacadeService extends ComponentStore<ContractState> {
 
   constructor() {
     super(initialState);
+  }
+
+  createContract(contract: ContractViewModel) {
+    const contractDto: Contract = {
+      id: `${Math.random()}`,
+      policyNumber: contract.policyNumber,
+      insuranceStartOn: contract.insuranceStartOn,
+      customer: contract.customer?.id ?? '',
+      claims: [],
+      status: contract.status,
+    };
+
+    return this.#contractDataService
+      .postContract(contractDto)
+      .pipe(
+        tap(() =>
+          this.patchState({ contracts: [...this.state().contracts, contract] })
+        )
+      );
   }
 
   #loadAll(): (
