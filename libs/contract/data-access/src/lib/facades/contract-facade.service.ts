@@ -4,8 +4,13 @@ import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
 import { filter, map, Observable, of, pipe, switchMap, tap } from 'rxjs';
 import { CustomerDataService } from '@ng-journal/customer/api-contract';
-import { Contract, Customer } from '@ng-journal/contract/models';
-import { ContractViewModel } from '../state/contract-view.model';
+import {
+  Contract,
+  ContractViewModel,
+  Customer,
+} from '@ng-journal/contract/models';
+
+// todo refactor to signals without component store to simplify
 
 const initialState: ContractState = {
   selectedContract: null,
