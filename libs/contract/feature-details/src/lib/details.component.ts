@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
@@ -16,6 +17,7 @@ import {
   ContractStatusChipComponent,
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'ng-journal-details',
@@ -35,7 +37,7 @@ import {
       (editButtonClicked)="this.onEditButtonClicked()"
     />
 
-    <ng-container *ngIf="contract$ | async as contract">
+    <ng-container *ngIf="contract() as contract">
       <ng-journal-card additionalClasses="grid">
         <div class="col-3 font-bold">Status:</div>
         <div class="col-3">
@@ -67,18 +69,29 @@ import {
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnDestroy {
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
-  readonly contract$ = this.#contractFacade.selectedContract$;
+  readonly contract = this.#contractFacade.selectedContract;
+  readonly #destroySetId = new Subject<void>();
   #id!: string;
   @Input() set id(id: string) {
-    this.#contractFacade.loadContract(id);
+    this.#destroySetId.next();
+    this.#contractFacade
+      .loadContract(id)
+      .pipe(takeUntil(this.#destroySetId))
+      .subscribe();
+
     this.#id = id;
   }
   get id(): string {
     return this.#id;
+  }
+
+  ngOnDestroy(): void {
+    this.#destroySetId.next();
+    this.#destroySetId.complete();
   }
 
   onEditButtonClicked(): void {

@@ -12,6 +12,7 @@ import {
   ContractStatusChipComponent,
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ng-journal-list',
@@ -23,7 +24,7 @@ import {
     ContractStatusChipComponent,
     ContractStatusChipStylePipe,
   ],
-  template: ` <p-table [value]="(contracts$ | async) ?? []">
+  template: ` <p-table [value]="contracts()">
     <ng-template pTemplate="header">
       <tr>
         <th>Policynumber</th>
@@ -57,9 +58,12 @@ import {
 })
 export class ListComponent implements OnInit {
   readonly #contractFacade = inject(ContractFacadeService);
-  readonly contracts$ = this.#contractFacade.contracts$;
+  readonly contracts = this.#contractFacade.contracts;
+  readonly #loadContracts$ = this.#contractFacade
+    .loadContracts()
+    .pipe(takeUntilDestroyed());
 
   ngOnInit(): void {
-    this.#contractFacade.loadAll();
+    this.#loadContracts$.subscribe();
   }
 }

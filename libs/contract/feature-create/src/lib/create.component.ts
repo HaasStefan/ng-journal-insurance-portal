@@ -6,10 +6,7 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ContractFacadeService,
-  ContractViewModel,
-} from '@ng-journal/contract/data-access';
+import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import {
   ButtonComponent,
   CardComponent,
@@ -20,9 +17,14 @@ import {
   createContractForm,
   CustomerOption,
 } from '@ng-journal/contract/ui';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
+import {
+  takeUntilDestroyed,
+  toObservable,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
-import { ContractStatus } from '@ng-journal/contract/models';
+import { ContractStatus, ContractViewModel } from '@ng-journal/contract/models';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -38,10 +40,7 @@ import { MessageService } from 'primeng/api';
   ],
   template: ` <ng-journal-header title="Contract Create" />
     <ng-journal-card>
-      <ng-journal-contract-form
-        [form]="form"
-        [customers]="(customers$ | async) ?? []"
-      />
+      <ng-journal-contract-form [form]="form" [customers]="customers() ?? []" />
     </ng-journal-card>
 
     <div class="p-2">
@@ -61,7 +60,7 @@ import { MessageService } from 'primeng/api';
 export class CreateComponent implements OnInit {
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #messageService = inject(MessageService);
-  readonly customers$ = this.#contractFacade.customers$.pipe(
+  readonly #customers$ = toObservable(this.#contractFacade.customers).pipe(
     map((customers) =>
       customers.map((customer) => {
         const customerOption: CustomerOption = {
@@ -72,11 +71,15 @@ export class CreateComponent implements OnInit {
       })
     )
   );
+  readonly customers = toSignal(this.#customers$);
+  readonly #loadCustomers$ = this.#contractFacade
+    .loadCustomers()
+    .pipe(takeUntilDestroyed());
   readonly form = createContractForm();
   readonly action = signal<Observable<unknown> | null>(null);
 
   ngOnInit() {
-    this.#contractFacade.loadAllCustomers();
+    this.#loadCustomers$.subscribe();
   }
 
   createContract() {

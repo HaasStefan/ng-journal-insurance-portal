@@ -1,16 +1,13 @@
-import { Injectable, inject } from '@angular/core';
-import { ComponentStore, tapResponse } from '@ngrx/component-store';
+import { Injectable, inject, signal } from '@angular/core';
 import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
-import { filter, map, Observable, of, pipe, switchMap, tap } from 'rxjs';
+import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { CustomerDataService } from '@ng-journal/customer/api-contract';
 import {
   Contract,
   ContractViewModel,
   Customer,
 } from '@ng-journal/contract/models';
-
-// todo refactor to signals without component store to simplify
 
 const initialState: ContractState = {
   selectedContract: null,
@@ -21,42 +18,34 @@ const initialState: ContractState = {
 @Injectable({
   providedIn: 'root',
 })
-export class ContractFacadeService extends ComponentStore<ContractState> {
+export class ContractFacadeService {
   readonly #contractDataService = inject(ContractDataService);
   readonly #customerDataService = inject(CustomerDataService);
-  readonly contracts$ = this.select((state) => state.contracts);
-  readonly customers$ = this.select((state) => state.customers);
-  readonly selectedContract$ = this.select((state) => state.selectedContract);
+  readonly contracts = signal(initialState.contracts);
+  readonly customers = signal(initialState.customers);
+  readonly selectedContract = signal(initialState.selectedContract);
   #loaded = false;
 
-  readonly loadAll = this.effect<void>(
-    pipe(
+  loadContracts() {
+    return of(null).pipe(
       filter(() => !this.#loaded),
       this.#loadAll(),
       tap(() => (this.#loaded = true))
-    )
-  );
+    );
+  }
 
-  readonly loadContract = this.effect<string>((id$) =>
-    id$.pipe(
-      switchMap((id) =>
-        of(null).pipe(
-          this.#loadAll(),
-          map(() => id)
-        )
-      ),
-      map((id) => this.state().contracts.find((c) => c.id === id)),
+  loadContract(id: string) {
+    return of(null).pipe(
+      this.#loadAll(),
+      map(() => id),
+      map((id) => this.contracts().find((c) => c.id === id)),
       filter((contract): contract is ContractViewModel => !!contract),
-      tapResponse(
-        (contract) => this.patchState({ selectedContract: contract }),
-        (error) => console.error(error)
-      )
-    )
-  );
+      tap((contract) => this.selectedContract.set(contract))
+    );
+  }
 
-  readonly loadAllCustomers = this.effect<void>(
-    pipe(
-      switchMap(() => this.#customerDataService.getAll()),
+  loadCustomers() {
+    return this.#customerDataService.getAll().pipe(
       map((customers) =>
         customers.map((c) => {
           const customer: Customer = {
@@ -67,15 +56,8 @@ export class ContractFacadeService extends ComponentStore<ContractState> {
           return customer;
         })
       ),
-      tapResponse(
-        (customers) => this.patchState({ customers }),
-        (error) => console.error(error)
-      )
-    )
-  );
-
-  constructor() {
-    super(initialState);
+      tap((customers) => this.customers.set(customers))
+    );
   }
 
   createContract(contract: ContractViewModel) {
@@ -90,11 +72,7 @@ export class ContractFacadeService extends ComponentStore<ContractState> {
 
     return this.#contractDataService
       .postContract(contractDto)
-      .pipe(
-        tap(() =>
-          this.patchState({ contracts: [...this.state().contracts, contract] })
-        )
-      );
+      .pipe(tap(() => this.contracts.set([...this.contracts(), contract])));
   }
 
   #loadAll(): (
@@ -132,10 +110,7 @@ export class ContractFacadeService extends ComponentStore<ContractState> {
             return contract;
           })
         ),
-        tapResponse(
-          (contracts: ContractViewModel[]) => this.patchState({ contracts }),
-          (error) => console.error(error)
-        )
+        tap((contracts) => this.contracts.set(contracts))
       );
   }
 }
