@@ -14,6 +14,7 @@ import {
 } from '@ng-journal/shared/ui';
 import {
   ContractFormComponent,
+  ContractStatusChipComponent,
   createContractForm,
   CustomerOption,
 } from '@ng-journal/contract/ui';
@@ -37,10 +38,15 @@ import { MessageService } from 'primeng/api';
     CardComponent,
     ButtonComponent,
     ButtonActionDirective,
+    ContractStatusChipComponent,
   ],
   template: ` <ng-journal-header title="Contract Create" />
     <ng-journal-card>
-      <ng-journal-contract-form [form]="form" [customers]="customers() ?? []" />
+      <ng-journal-contract-form
+        [form]="form"
+        [customers]="customers() ?? []"
+        [isEditMode]="false"
+      />
     </ng-journal-card>
 
     <div class="p-2">

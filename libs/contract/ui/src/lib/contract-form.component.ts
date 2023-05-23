@@ -5,31 +5,48 @@ import {
   Input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  AbstractControl,
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import {
   ContractStatusChipComponent,
   ContractStatusChipStyle,
 } from './contract-status-chip.component';
+import { ContractStatus } from '@ng-journal/contract/models';
+
+export interface ContractStatusOption {
+  label: ContractStatus;
+  id: ContractStatus;
+}
 
 export type ContractForm = ReturnType<typeof createContractForm>;
 
 export function createContractForm(
-  formBuilder?: FormBuilder,
-  abstractControls: Record<string, AbstractControl> = {}
+  params: {
+    policyNumber: string;
+    insuranceStartOn: Date | null;
+    customer: CustomerOption | null;
+    status: ContractStatusOption | null;
+  } = {
+    policyNumber: '',
+    insuranceStartOn: null,
+    customer: null,
+    status: null,
+  },
+  fb = inject(FormBuilder)
 ) {
-  const fb = formBuilder ?? inject(FormBuilder);
-
   return fb.group({
-    policyNumber: fb.control<string>('', [Validators.required]),
-    insuranceStartOn: fb.control<Date | null>(null, [Validators.required]),
-    customer: fb.control<CustomerOption | null>(null, [Validators.required]),
-    ...abstractControls,
+    policyNumber: fb.control<string>(params.policyNumber, [
+      Validators.required,
+    ]),
+    insuranceStartOn: fb.control<Date | null>(params.insuranceStartOn, [
+      Validators.required,
+    ]),
+    customer: fb.control<CustomerOption | null>(params.customer, [
+      Validators.required,
+    ]),
+    status: fb.control<ContractStatusOption | null>(params.status, [
+      Validators.required,
+    ]),
   });
 }
 
@@ -49,17 +66,35 @@ export type CustomerOption = {
   ],
   template: ` <form [formGroup]="form" class="grid">
     <div class="col-6 flex flex-column gap-2">
+      <ng-container *ngIf="isEditMode; else createMode">
+        <label htmlFor="status">Status</label>
+        <p-dropdown
+          name="status"
+          [options]="statusOptions"
+          formControlName="status"
+          placeholder="Select status"
+          [style]="{ width: '100%' }"
+        />
+        <span
+          *ngIf="!!form.controls.status.errors?.['required'] && form.controls.status.dirty"
+          class="text-red-700"
+        >
+          Input is required.
+        </span>
+      </ng-container>
+    </div>
+    <ng-template #createMode>
       <label htmlFor="status">Status</label>
       <ng-journal-contract-status-chip
         label="Pending"
         [style]="pendingStatus"
       />
-    </div>
+    </ng-template>
 
     <div class="col-6 flex flex-column gap-2">
       <label htmlFor="customer">Customer</label>
       <p-dropdown
-        id="customer"
+        name="customer"
         [options]="customers"
         formControlName="customer"
         placeholder="Select customer"
@@ -110,5 +145,23 @@ export type CustomerOption = {
 export class ContractFormComponent {
   @Input({ required: true }) form!: ContractForm;
   @Input({ required: true }) customers!: CustomerOption[];
+  #isEditMode!: boolean;
+  @Input({ required: true }) set isEditMode(value: boolean) {
+    this.#isEditMode = value;
+    if (!value) {
+      this.form.controls.status.disable();
+      this.form.controls.status.setValue({
+        id: ContractStatus.Pending,
+        label: ContractStatus.Pending,
+      });
+    }
+  }
+  get isEditMode() {
+    return this.#isEditMode;
+  }
+  readonly statusOptions = Object.values(ContractStatus).map((status) => ({
+    id: status,
+    label: status,
+  }));
   readonly pendingStatus = ContractStatusChipStyle.Pending;
 }

@@ -25,4 +25,9 @@ export class ContractDataService {
     // fake http call
     return of(contract).pipe(delay(1000));
   }
+
+  put(contract: Contract) {
+    // fake http call
+    return of(contract).pipe(delay(1000));
+  }
 }

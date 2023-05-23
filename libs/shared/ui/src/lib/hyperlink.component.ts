@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink],
   template: `<a
     [routerLink]="route"
-    class="no-underline hover:underline text-900 hover:text-cyan-400"
+    class="no-underline hover:underline text-900 hover:text-primary-400"
   >
     <ng-content></ng-content>
     <i class="ml-1 fa-solid fa-link"></i>

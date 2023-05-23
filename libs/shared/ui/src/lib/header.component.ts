@@ -35,7 +35,7 @@ import { primeNgModules } from '@ng-journal/shared/utils';
       <p-button
         *ngIf="showEditButton"
         type="button"
-        styleClass="bg-cyan-500 border-none"
+        styleClass="bg-primary-500 border-none"
         (click)="this.editButtonClicked.emit()"
       >
         <i class="mr-2 fa-solid fa-pencil"></i>

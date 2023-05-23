@@ -16,7 +16,7 @@ import { SidebarComponent } from './sidebar.component';
         class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center fixed"
       >
         <span>
-          <i class="mr-2 fa-sharp fa-solid fa-shield text-cyan-400"></i>
+          <i class="mr-2 fa-sharp fa-solid fa-shield text-primary-400"></i>
           Insurance Portal</span
         >
       </div>

@@ -1,4 +1,4 @@
-import { ContractStatus } from './contrac-status.model';
+import { ContractStatus } from './contract-status.model';
 
 export interface Contract {
   id: string;

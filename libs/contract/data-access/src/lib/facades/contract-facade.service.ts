@@ -88,6 +88,28 @@ export class ContractFacadeService {
     );
   }
 
+  updateContract(contract: ContractViewModel) {
+    const contractDto: Contract = {
+      id: contract.id,
+      policyNumber: contract.policyNumber,
+      insuranceStartOn: contract.insuranceStartOn,
+      customer: contract.customer?.id ?? '',
+      claims: contract.claims,
+      status: contract.status,
+    };
+
+    return this.#contractDataService.put(contractDto).pipe(
+      tap(() =>
+        this.#state.set({
+          ...this.#state(),
+          contracts: this.contracts().map((c) =>
+            c.id === contract.id ? contract : c
+          ),
+        })
+      )
+    );
+  }
+
   #loadAll(): (
     source$: Observable<void | null>
   ) => Observable<ContractViewModel[]> {

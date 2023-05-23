@@ -40,8 +40,10 @@ const listMetaData: RouteMetaData = {
             [routerLink]="[config.domain, route.path]"
             [routerLinkActive]="[config.domain, route.path]"
             #rl="routerLinkActive"
-            class="p-1 mb-1 rounded-md w-full hover:bg-cyan-400"
-            [ngClass]="rl.isActive ? 'bg-cyan-600 border border-cyan-400' : ''"
+            class="p-1 mb-1 rounded-md w-full hover:bg-primary-400"
+            [ngClass]="
+              rl.isActive ? 'bg-primary-600 border border-primary-400' : ''
+            "
           >
             <i [class]="'mr-2 fa-solid fa-' + route.icon"></i> {{ route.label }}
           </div>
