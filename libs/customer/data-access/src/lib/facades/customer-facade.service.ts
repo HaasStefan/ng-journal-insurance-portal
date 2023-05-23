@@ -3,7 +3,7 @@ import { CustomerState } from '../state/customer-state.model';
 import { CustomerDataService } from '../data-services/customer-data.service';
 import { tap } from 'rxjs';
 
-const initialState: CustomerState = {
+const initialState: Readonly<CustomerState> = {
   customers: [],
   selectedCustomer: null,
 };

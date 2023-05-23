@@ -9,7 +9,7 @@ import {
   Customer,
 } from '@ng-journal/contract/models';
 
-const initialState: ContractState = {
+const initialState: Readonly<ContractState> = {
   selectedContract: null,
   contracts: [],
   customers: [],
