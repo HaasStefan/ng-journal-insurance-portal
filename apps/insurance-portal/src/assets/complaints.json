@@ -1,3 +1,8 @@
 [
-    
+  {
+    "id": "2da42b88-cd9b-4cfa-8dad-70a2fba61232",
+    "customer": "2da42b88-cd9b-4cfa-8dad-70a2fba6fe83",
+    "type": "Sales",
+    "description": "Did not like the product. It was not as described."
+  }
 ]

@@ -70,6 +70,9 @@
       "@ng-journal/contract/models": ["libs/contract/models/src/index.ts"],
       "@ng-journal/contract/routes": ["libs/contract/routes/src/index.ts"],
       "@ng-journal/contract/ui": ["libs/contract/ui/src/index.ts"],
+      "@ng-journal/customer/api-complaint": [
+        "libs/customer/api-complaint/src/index.ts"
+      ],
       "@ng-journal/customer/api-contract": [
         "libs/customer/api-contract/src/index.ts"
       ],
@@ -84,7 +87,6 @@
       ],
       "@ng-journal/customer/models": ["libs/customer/models/src/index.ts"],
       "@ng-journal/customer/routes": ["libs/customer/routes/src/index.ts"],
-      "@ng-journal/customer/ui": ["libs/customer/ui/src/index.ts"],
       "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"],
       "@ng-journal/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@ng-journal/shared/ui-directives": [

@@ -78,7 +78,7 @@ export class ContractFacadeService {
       status: contract.status,
     };
 
-    return this.#contractDataService.postContract(contractDto).pipe(
+    return this.#contractDataService.post(contractDto).pipe(
       tap(() =>
         this.#state.set({
           ...this.#state(),

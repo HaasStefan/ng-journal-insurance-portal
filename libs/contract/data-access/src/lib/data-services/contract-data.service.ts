@@ -21,7 +21,7 @@ export class ContractDataService {
     return this.#http.get<Contract[]>(`${this.#baseUrl}/assets/contracts.json`);
   }
 
-  postContract(contract: Contract) {
+  post(contract: Contract) {
     // fake http call
     return of(contract).pipe(delay(1000));
   }

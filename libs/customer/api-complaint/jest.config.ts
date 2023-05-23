@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
-  displayName: 'customer-ui',
+  displayName: 'customer-api-complaint',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/customer/ui',
+  coverageDirectory: '../../../coverage/libs/customer/api-complaint',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

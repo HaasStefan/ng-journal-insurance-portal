@@ -62,10 +62,13 @@ export class SidebarComponent {
     //   domain: 'claim',
     //   routes: [listMetaData, createMetaData],
     // },
-    // {
-    //   domain: 'complaint',
-    //   routes: [listMetaData, createMetaData],
-    // },
+    {
+      domain: 'complaint',
+      routes: [
+        listMetaData,
+        // , createMetaData
+      ],
+    },
     {
       domain: 'customer',
       routes: [listMetaData],
