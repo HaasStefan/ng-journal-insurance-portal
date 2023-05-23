@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ContractStatusChipComponent,
     ContractStatusChipStylePipe,
   ],
-  template: ` <p-table [value]="contracts()">
+  template: ` <p-table [value]="contracts()" [rowHover]="true">
     <ng-template pTemplate="header">
       <tr>
         <th>Policynumber</th>

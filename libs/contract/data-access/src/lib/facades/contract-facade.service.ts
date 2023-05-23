@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
@@ -21,9 +21,12 @@ const initialState: ContractState = {
 export class ContractFacadeService {
   readonly #contractDataService = inject(ContractDataService);
   readonly #customerDataService = inject(CustomerDataService);
-  readonly contracts = signal(initialState.contracts);
-  readonly customers = signal(initialState.customers);
-  readonly selectedContract = signal(initialState.selectedContract);
+
+  readonly #state = signal(initialState);
+  readonly contracts = computed(() => this.#state().contracts);
+  readonly customers = computed(() => this.#state().customers);
+  readonly selectedContract = computed(() => this.#state().selectedContract);
+
   #loaded = false;
 
   loadContracts() {
@@ -40,7 +43,12 @@ export class ContractFacadeService {
       map(() => id),
       map((id) => this.contracts().find((c) => c.id === id)),
       filter((contract): contract is ContractViewModel => !!contract),
-      tap((contract) => this.selectedContract.set(contract))
+      tap((contract) =>
+        this.#state.set({
+          ...this.#state(),
+          selectedContract: contract,
+        })
+      )
     );
   }
 
@@ -56,7 +64,7 @@ export class ContractFacadeService {
           return customer;
         })
       ),
-      tap((customers) => this.customers.set(customers))
+      tap((customers) => this.#state.set({ ...this.#state(), customers }))
     );
   }
 
@@ -70,9 +78,14 @@ export class ContractFacadeService {
       status: contract.status,
     };
 
-    return this.#contractDataService
-      .postContract(contractDto)
-      .pipe(tap(() => this.contracts.set([...this.contracts(), contract])));
+    return this.#contractDataService.postContract(contractDto).pipe(
+      tap(() =>
+        this.#state.set({
+          ...this.#state(),
+          contracts: [...this.contracts(), contract],
+        })
+      )
+    );
   }
 
   #loadAll(): (
@@ -110,7 +123,7 @@ export class ContractFacadeService {
             return contract;
           })
         ),
-        tap((contracts) => this.contracts.set(contracts))
+        tap((contracts) => this.#state.set({ ...this.#state(), contracts }))
       );
   }
 }

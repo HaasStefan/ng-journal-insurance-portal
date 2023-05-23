@@ -1,2 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface CustomerState {}
+import { Customer } from '@ng-journal/customer/models';
+
+export interface CustomerState {
+  customers: Customer[];
+  selectedCustomer: Customer | null;
+}
