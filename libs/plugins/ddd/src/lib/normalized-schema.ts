@@ -1,5 +1,5 @@
 export type GeneratorSchema = {
-  name?: string;
+  name: string;
   domain: string;
 };
 
