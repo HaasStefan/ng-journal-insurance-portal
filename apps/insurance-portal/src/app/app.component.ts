@@ -13,24 +13,34 @@ import { SidebarComponent } from './sidebar.component';
 
     <div class="flex flex-column h-full">
       <div
-        class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center"
+        class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center fixed"
       >
         <span>
           <i class="mr-2 fa-sharp fa-solid fa-shield text-cyan-400"></i>
           Insurance Portal</span
         >
       </div>
-      <div class="flex flex-grow-0">
-        <div class="w-10rem surface-700 h-screen text-100 p-2">
+      <div class="flex flex-grow-0 pt-4rem">
+        <div class="w-10rem surface-700 h-screen text-100 p-2 fixed">
           <ng-journal-sidebar />
         </div>
-        <div class="p-2 surface-50 w-full">
+        <div class="surface-50 w-full pl-10rem">
           <router-outlet />
         </div>
       </div>
     </div>
   `,
-  styles: [],
+  styles: [
+    `
+      .pt-4rem {
+        padding-top: 4rem;
+      }
+
+      .pl-10rem {
+        padding: 1rem 1rem 1rem 11rem;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
