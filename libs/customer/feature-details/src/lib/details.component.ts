@@ -19,20 +19,20 @@ import { Subject, takeUntil } from 'rxjs';
 
     <ng-container *ngIf="customer() as customer">
       <ng-journal-card additionalClasses="grid">
-        <div class="col-3 font-bold">First name:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">First name:</div>
+        <div class="col-4">
           {{ customer.firstName }}
         </div>
-        <div class="col-3 font-bold">Email:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Email:</div>
+        <div class="col-4">
           {{ customer.email }}
         </div>
-        <div class="col-3 font-bold">Last name:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Last name:</div>
+        <div class="col-4">
           {{ customer.lastName }}
         </div>
-        <div class="col-3 font-bold">Phone:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Phone:</div>
+        <div class="col-4">
           {{ customer.phone }}
         </div>
 
@@ -40,20 +40,20 @@ import { Subject, takeUntil } from 'rxjs';
           <ng-journal-header title="Address" type="subtitle" />
         </div>
 
-        <div class="col-3 font-bold">Street:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Street:</div>
+        <div class="col-4">
           {{ customer.address.street }}
         </div>
-        <div class="col-3 font-bold">City:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">City:</div>
+        <div class="col-4">
           {{ customer.address.city }}
         </div>
-        <div class="col-3 font-bold">State:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">State:</div>
+        <div class="col-4">
           {{ customer.address.state }}
         </div>
-        <div class="col-3 font-bold">Zip:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Zip:</div>
+        <div class="col-4">
           {{ customer.address.zip }}
         </div>
       </ng-journal-card></ng-container

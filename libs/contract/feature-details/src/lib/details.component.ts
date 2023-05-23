@@ -39,30 +39,30 @@ import { Subject, takeUntil } from 'rxjs';
 
     <ng-container *ngIf="contract() as contract">
       <ng-journal-card additionalClasses="grid">
-        <div class="col-3 font-bold">Status:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Status:</div>
+        <div class="col-4">
           <ng-journal-contract-status-chip
             [label]="contract.status"
             [style]="contract.status | contractStatusChipStyle"
           />
         </div>
 
-        <div class="col-3 font-bold">Policynumber:</div>
-        <div class="col-3">{{ contract.policyNumber }}</div>
-        <div class="col-3 font-bold">Insurance Start:</div>
-        <div class="col-3">{{ contract.insuranceStartOn | date }}</div>
+        <div class="col-2 font-bold">Policynumber:</div>
+        <div class="col-4">{{ contract.policyNumber }}</div>
+        <div class="col-2 font-bold">Insurance Start:</div>
+        <div class="col-4">{{ contract.insuranceStartOn | date }}</div>
 
-        <div class="col-3 font-bold">Customer:</div>
-        <div class="col-3">
+        <div class="col-2 font-bold">Customer:</div>
+        <div class="col-4">
           <ng-journal-hyperlink [route]="['/customer', contract.customer?.id]">
             {{ contract.customer?.label }}
           </ng-journal-hyperlink>
         </div>
 
-        <div class="col-3 font-bold">Phone:</div>
-        <div class="col-3">{{ contract.customer?.phone }}</div>
-        <div class="col-3 font-bold">Email:</div>
-        <div class="col-3">{{ contract.customer?.email }}</div>
+        <div class="col-2 font-bold">Phone:</div>
+        <div class="col-4">{{ contract.customer?.phone }}</div>
+        <div class="col-2 font-bold">Email:</div>
+        <div class="col-4">{{ contract.customer?.email }}</div>
       </ng-journal-card>
     </ng-container>
   `,

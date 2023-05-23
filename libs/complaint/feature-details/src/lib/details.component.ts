@@ -1,15 +1,70 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComplaintFacadeService } from '@ng-journal/complaint/data-access';
+import { Subject, takeUntil } from 'rxjs';
+import {
+  CardComponent,
+  HeaderComponent,
+  HyperlinkComponent,
+} from '@ng-journal/shared/ui';
+import { primeNgModules } from '@ng-journal/shared/utils';
 
 @Component({
   selector: 'ng-journal-details',
   standalone: true,
-  imports: [CommonModule],
-  template: `<p>Details works!</p>`,
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    CardComponent,
+    HyperlinkComponent,
+    ...primeNgModules,
+  ],
+  template: `<ng-journal-header title="Complaint Details" />
+    <ng-container *ngIf="complaint() as complaint">
+      <ng-journal-card additionalClasses="grid">
+        <div class="col-2 font-bold">Customer:</div>
+        <div class="col-4">
+          <ng-journal-hyperlink [route]="['/customer', complaint.customer?.id]">
+            {{ complaint.customer?.label }}
+          </ng-journal-hyperlink>
+        </div>
+        <div class="col-2 font-bold">Type:</div>
+        <div class="col-4">
+          {{ complaint.type }}
+        </div>
+        <div class="col-2 font-bold">Date:</div>
+        <div class="col-4">
+          {{ complaint.date | date }}
+        </div>
+        <div class="col-2 font-bold">Description:</div>
+        <div class="col-4">
+          {{ complaint.description }}
+        </div>
+      </ng-journal-card>
+    </ng-container> `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnDestroy {
   readonly #complaintFacade = inject(ComplaintFacadeService);
+  readonly complaint = this.#complaintFacade.selectedComplaint;
+  readonly #destroySetId = new Subject<void>();
+  @Input() set id(id: string) {
+    this.#destroySetId.next();
+    this.#complaintFacade
+      .loadComplaint(id)
+      .pipe(takeUntil(this.#destroySetId))
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.#destroySetId.next();
+    this.#destroySetId.complete();
+  }
 }

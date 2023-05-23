@@ -50,7 +50,7 @@ const listMetaData: RouteMetaData = {
         </ng-container>
       </li>
     </ul>
-  </nav>`,
+  </nav> `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

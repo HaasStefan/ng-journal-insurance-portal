@@ -15,10 +15,18 @@ import { SidebarComponent } from './sidebar.component';
       <div
         class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center fixed"
       >
-        <span>
-          <i class="mr-2 fa-sharp fa-solid fa-shield text-primary-400"></i>
-          Insurance Portal</span
+        <a
+          href="https://www.ng-journal.com"
+          class="text-white w-full flex align-items-center no-underline"
         >
+          <img
+            src="/assets/ng-journal.png"
+            width="45rem"
+            height="45rem"
+            alt="ng-journal logo"
+          />
+          <span class="ml-2">Insurance Portal</span>
+        </a>
       </div>
       <div class="flex flex-grow-0 pt-4rem">
         <div class="w-10rem surface-700 h-screen text-100 p-2 fixed">
