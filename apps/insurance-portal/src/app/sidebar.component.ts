@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 interface RouteMetaData {
   path: string;
-  icon: 'plus' | 'pencil' | 'list';
+  icon: 'plus' | 'list' | 'home';
   label: string;
 }
 
@@ -56,6 +56,16 @@ const listMetaData: RouteMetaData = {
 })
 export class SidebarComponent {
   readonly routingConfigs: RoutingConfig[] = [
+    {
+      domain: 'General',
+      routes: [
+        {
+          path: '',
+          icon: 'home',
+          label: 'Home',
+        },
+      ],
+    },
     {
       domain: 'contract',
       routes: [listMetaData, createMetaData],
