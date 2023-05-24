@@ -31,7 +31,7 @@ import { ComplaintType, Customer } from '@ng-journal/complaint/models';
       <p-dropdown
         name="customer"
         [options]="customers"
-        formControlName="customers"
+        formControlName="customer"
         placeholder="Select customer"
         [style]="{ width: '100%' }"
       />
