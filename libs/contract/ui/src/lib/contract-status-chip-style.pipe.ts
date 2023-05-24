@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ContractStatus } from '@ng-journal/contract/models';
+import { ContractStatusDto } from '@ng-journal/contract/models';
 import { ContractStatusChipStyle } from './contract-status-chip.component';
 
 @Pipe({
@@ -7,13 +7,13 @@ import { ContractStatusChipStyle } from './contract-status-chip.component';
   standalone: true,
 })
 export class ContractStatusChipStylePipe implements PipeTransform {
-  transform(value: ContractStatus): ContractStatusChipStyle {
+  transform(value: ContractStatusDto): ContractStatusChipStyle {
     switch (value) {
-      case ContractStatus.Active:
+      case ContractStatusDto.Active:
         return ContractStatusChipStyle.Active;
-      case ContractStatus.Inactive:
+      case ContractStatusDto.Inactive:
         return ContractStatusChipStyle.Inactive;
-      case ContractStatus.Pending:
+      case ContractStatusDto.Pending:
         return ContractStatusChipStyle.Pending;
       default:
         throw new Error(`Unknown contract status: ${value}`);

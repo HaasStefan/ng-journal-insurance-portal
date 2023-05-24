@@ -3,8 +3,8 @@ import { ComplaintState } from '../state/complaint-state.model';
 import { ComplaintDataService } from '../data-services/complaint-data.service';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import {
+  ComplaintDto,
   Complaint,
-  ComplaintViewModel,
   Customer,
 } from '@ng-journal/complaint/models';
 import { CustomerDataService } from '@ng-journal/customer/api-complaint';
@@ -39,7 +39,7 @@ export class ComplaintFacadeService {
       }),
       map(() => id),
       map((id) => this.complaints().find((c) => c.id === id)),
-      filter((complaint): complaint is ComplaintViewModel => !!complaint),
+      filter((complaint): complaint is Complaint => !!complaint),
       tap((complaint) =>
         this.#state.update((state) => ({
           ...state,
@@ -75,8 +75,8 @@ export class ComplaintFacadeService {
     );
   }
 
-  createComplaint(complaint: ComplaintViewModel) {
-    const complaintDto: Complaint = {
+  createComplaint(complaint: Complaint) {
+    const complaintDto: ComplaintDto = {
       ...complaint,
       id: `${Math.random()}`,
       customer: complaint.customer?.id ?? '',
@@ -92,7 +92,7 @@ export class ComplaintFacadeService {
     );
   }
 
-  #loadAll<T>(): (source$: Observable<T>) => Observable<ComplaintViewModel[]> {
+  #loadAll<T>(): (source$: Observable<T>) => Observable<Complaint[]> {
     return (source$) =>
       source$.pipe(
         switchMap(() =>
@@ -107,7 +107,7 @@ export class ComplaintFacadeService {
                 ),
                 map((customerDtos) => {
                   return complaintDtos.map((dto) => {
-                    const complaint: ComplaintViewModel = {
+                    const complaint: Complaint = {
                       ...dto,
                       customer:
                         customerDtos.find((c) => c.id === dto.customer) ?? null,

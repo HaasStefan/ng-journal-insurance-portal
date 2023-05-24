@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComplaintForm } from '@ng-journal/complaint/utils';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ComplaintType, Customer } from '@ng-journal/complaint/models';
+import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
 
 @Component({
   selector: 'ng-journal-complaint-form',
@@ -79,5 +79,5 @@ import { ComplaintType, Customer } from '@ng-journal/complaint/models';
 export class ComplaintFormComponent {
   @Input({ required: true }) form!: ComplaintForm;
   @Input({ required: true }) customers!: Customer[];
-  readonly typeOptions = Object.values(ComplaintType);
+  readonly typeOptions = Object.values(ComplaintTypeDto);
 }

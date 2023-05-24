@@ -28,9 +28,6 @@
       "@ng-journal/claim/feature-details": [
         "libs/claim/feature-details/src/index.ts"
       ],
-      "@ng-journal/claim/feature-edit": [
-        "libs/claim/feature-edit/src/index.ts"
-      ],
       "@ng-journal/claim/feature-list": [
         "libs/claim/feature-list/src/index.ts"
       ],

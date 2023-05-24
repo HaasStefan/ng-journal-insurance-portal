@@ -17,7 +17,7 @@ import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
 import { createComplaintForm } from '@ng-journal/complaint/utils';
 import { MessageService } from 'primeng/api';
 import { map, Observable, tap } from 'rxjs';
-import { ComplaintViewModel, Customer } from '@ng-journal/complaint/models';
+import { Complaint, Customer } from '@ng-journal/complaint/models';
 import {
   takeUntilDestroyed,
   toObservable,
@@ -89,7 +89,7 @@ export class CreateComponent implements OnInit {
     const { date, type, customer, description } = this.form.getRawValue();
 
     if (!!date && !!type && !!customer && !!description) {
-      const complaint: ComplaintViewModel = {
+      const complaint: Complaint = {
         id: '',
         date,
         type,

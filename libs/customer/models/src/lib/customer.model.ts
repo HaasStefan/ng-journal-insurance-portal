@@ -1,10 +1,3 @@
-import { Address } from './address.model';
+import { CustomerDto } from './dtos/customer.model';
 
-export interface Customer {
-  id: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-  address: Address;
-}
+export type Customer = CustomerDto;

@@ -24,8 +24,8 @@ import {
 } from '@angular/core/rxjs-interop';
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
 import {
-  ContractStatus,
-  ContractViewModel,
+  ContractStatusDto,
+  Contract,
   CustomerOption,
 } from '@ng-journal/contract/models';
 import { MessageService } from 'primeng/api';
@@ -96,7 +96,7 @@ export class CreateComponent implements OnInit {
       this.form.getRawValue();
 
     if (!!insuranceStartOn && !!customer && !!policyNumber) {
-      const contract: ContractViewModel = {
+      const contract: Contract = {
         insuranceStartOn,
         customer: {
           ...customer,
@@ -106,7 +106,7 @@ export class CreateComponent implements OnInit {
         claims: [],
         id: '',
         policyNumber,
-        status: ContractStatus.Pending,
+        status: ContractStatusDto.Pending,
       };
 
       this.action.set(

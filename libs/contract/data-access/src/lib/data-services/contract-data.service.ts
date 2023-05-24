@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
-import { Contract } from '@ng-journal/contract/models';
+import { ContractDto } from '@ng-journal/contract/models';
 import { delay, map, of } from 'rxjs';
 
 @Injectable({
@@ -18,15 +18,17 @@ export class ContractDataService {
   }
 
   getAll() {
-    return this.#http.get<Contract[]>(`${this.#baseUrl}/assets/contracts.json`);
+    return this.#http.get<ContractDto[]>(
+      `${this.#baseUrl}/assets/contracts.json`
+    );
   }
 
-  post(contract: Contract) {
+  post(contract: ContractDto) {
     // fake http call
     return of(contract).pipe(delay(1000));
   }
 
-  put(contract: Contract) {
+  put(contract: ContractDto) {
     // fake http call
     return of(contract).pipe(delay(1000));
   }

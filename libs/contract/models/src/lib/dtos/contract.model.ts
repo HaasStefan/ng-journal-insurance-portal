@@ -1,10 +1,10 @@
-import { ContractStatus } from './contract-status.model';
+import { ContractStatusDto } from './contract-status.model';
 
-export interface Contract {
+export interface ContractDto {
   id: string;
   policyNumber: string;
   insuranceStartOn: Date;
   customer: string;
   claims: string[];
-  status: ContractStatus;
+  status: ContractStatusDto;
 }

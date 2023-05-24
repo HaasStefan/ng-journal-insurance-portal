@@ -3,11 +3,7 @@ import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { CustomerDataService } from '@ng-journal/customer/api-contract';
-import {
-  Contract,
-  ContractViewModel,
-  Customer,
-} from '@ng-journal/contract/models';
+import { ContractDto, Contract, Customer } from '@ng-journal/contract/models';
 
 const initialState: Readonly<ContractState> = {
   selectedContract: null,
@@ -47,7 +43,7 @@ export class ContractFacadeService {
       }),
       map(() => id),
       map((id) => this.contracts().find((c) => c.id === id)),
-      filter((contract): contract is ContractViewModel => !!contract),
+      filter((contract): contract is Contract => !!contract),
       tap((contract) =>
         this.#state.update((state) => ({
           ...state,
@@ -75,8 +71,8 @@ export class ContractFacadeService {
     );
   }
 
-  createContract(contract: ContractViewModel) {
-    const contractDto: Contract = {
+  createContract(contract: Contract) {
+    const contractDto: ContractDto = {
       id: `${Math.random()}`,
       policyNumber: contract.policyNumber,
       insuranceStartOn: contract.insuranceStartOn,
@@ -95,8 +91,8 @@ export class ContractFacadeService {
     );
   }
 
-  updateContract(contract: ContractViewModel) {
-    const contractDto: Contract = {
+  updateContract(contract: Contract) {
+    const contractDto: ContractDto = {
       id: contract.id,
       policyNumber: contract.policyNumber,
       insuranceStartOn: contract.insuranceStartOn,
@@ -117,9 +113,7 @@ export class ContractFacadeService {
     );
   }
 
-  #loadAll(): (
-    source$: Observable<void | null>
-  ) => Observable<ContractViewModel[]> {
+  #loadAll(): (source$: Observable<void | null>) => Observable<Contract[]> {
     return (source$) =>
       source$.pipe(
         switchMap(() => this.#contractDataService.getAll()),
@@ -142,7 +136,7 @@ export class ContractFacadeService {
         ),
         map(({ contracts, customers }) =>
           contracts.map((c) => {
-            const contract: ContractViewModel = {
+            const contract: Contract = {
               ...c,
               customer: customers.find(
                 (customer) => customer.id === c.customer

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
-import { Complaint } from '@ng-journal/complaint/models';
+import { ComplaintDto } from '@ng-journal/complaint/models';
 import { delay, map, of } from 'rxjs';
 
 @Injectable({
@@ -18,12 +18,12 @@ export class ComplaintDataService {
   }
 
   getAll() {
-    return this.#http.get<Complaint[]>(
+    return this.#http.get<ComplaintDto[]>(
       `${this.#baseUrl}/assets/complaints.json`
     );
   }
 
-  post(complaint: Complaint) {
+  post(complaint: ComplaintDto) {
     // fake http call
     return of(complaint).pipe(delay(1000));
   }

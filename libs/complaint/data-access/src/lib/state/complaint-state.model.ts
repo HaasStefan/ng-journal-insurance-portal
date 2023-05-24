@@ -1,7 +1,7 @@
-import { ComplaintViewModel, Customer } from '@ng-journal/complaint/models';
+import { Complaint, Customer } from '@ng-journal/complaint/models';
 
 export interface ComplaintState {
-  complaints: ComplaintViewModel[];
-  selectedComplaint: ComplaintViewModel | null;
+  complaints: Complaint[];
+  selectedComplaint: Complaint | null;
   customers: Customer[];
 }

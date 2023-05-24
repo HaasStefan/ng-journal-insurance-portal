@@ -6,7 +6,7 @@ import {
   ContractStatusChipComponent,
   ContractStatusChipStyle,
 } from './contract-status-chip.component';
-import { ContractStatus, CustomerOption } from '@ng-journal/contract/models';
+import { ContractStatusDto, CustomerOption } from '@ng-journal/contract/models';
 import { ContractForm } from '@ng-journal/contract/utils';
 
 @Component({
@@ -105,15 +105,15 @@ export class ContractFormComponent {
     if (!value) {
       this.form.controls.status.disable();
       this.form.controls.status.setValue({
-        id: ContractStatus.Pending,
-        label: ContractStatus.Pending,
+        id: ContractStatusDto.Pending,
+        label: ContractStatusDto.Pending,
       });
     }
   }
   get isEditMode() {
     return this.#isEditMode;
   }
-  readonly statusOptions = Object.values(ContractStatus).map((status) => ({
+  readonly statusOptions = Object.values(ContractStatusDto).map((status) => ({
     id: status,
     label: status,
   }));

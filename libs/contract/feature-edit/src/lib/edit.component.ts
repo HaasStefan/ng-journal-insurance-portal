@@ -25,16 +25,16 @@ import {
 } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import {
-  ContractStatus,
-  ContractViewModel,
+  ContractStatusDto,
+  Contract,
   CustomerOption,
 } from '@ng-journal/contract/models';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { createContractForm } from '@ng-journal/contract/utils';
 
 interface ContractStatusOption {
-  label: ContractStatus;
-  id: ContractStatus;
+  label: ContractStatusDto;
+  id: ContractStatusDto;
 }
 
 @Component({
@@ -89,9 +89,7 @@ export class EditComponent implements OnInit {
   readonly selectedContract = toObservable(
     this.#contractFacade.selectedContract
   ).pipe(
-    filter(
-      (contract): contract is NonNullable<ContractViewModel> => !!contract
-    ),
+    filter((contract): contract is NonNullable<Contract> => !!contract),
     distinctUntilChanged()
   );
   readonly #customers$ = toObservable(this.#contractFacade.customers).pipe(
@@ -105,7 +103,7 @@ export class EditComponent implements OnInit {
       })
     )
   );
-  readonly statusOptions = Object.values(ContractStatus).map(
+  readonly statusOptions = Object.values(ContractStatusDto).map(
     (status) =>
       ({
         id: status,
@@ -150,7 +148,7 @@ export class EditComponent implements OnInit {
       this.form.getRawValue();
 
     if (!!insuranceStartOn && !!customer && !!policyNumber && !!status) {
-      const contract: ContractViewModel = {
+      const contract: Contract = {
         insuranceStartOn,
         customer: {
           ...customer,
