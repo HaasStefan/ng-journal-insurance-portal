@@ -4,7 +4,11 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'contract',
+    redirectTo: 'home',
+  },
+  {
+    path: 'home',
+    loadComponent: async () => (await import('./home.component')).HomeComponent,
   },
   {
     path: 'contract',
@@ -24,5 +28,9 @@ export const appRoutes: Route[] = [
     path: 'customer',
     loadChildren: async () =>
       (await import('@ng-journal/customer/routes')).routes,
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];

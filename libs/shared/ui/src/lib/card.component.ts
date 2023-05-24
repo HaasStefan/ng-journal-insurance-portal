@@ -6,10 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: ` <div class="p-2">
-    <div
-      class="p-2 shadow-2 border-round  w-full"
-      [ngClass]="additionalClasses"
-    >
+    <div class="p-2 shadow-2 border-round w-full" [ngClass]="additionalClasses">
       <ng-content></ng-content>
     </div>
   </div>`,
