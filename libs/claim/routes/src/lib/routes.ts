@@ -9,6 +9,11 @@ export const routes: Routes = [
         loadComponent: async () =>
           (await import('@ng-journal/claim/feature-list')).ListComponent,
       },
+      {
+        path: ':id/details',
+        loadComponent: async () =>
+          (await import('@ng-journal/claim/feature-details')).DetailsComponent,
+      },
     ],
   },
 ];

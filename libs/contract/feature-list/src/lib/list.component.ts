@@ -13,6 +13,7 @@ import {
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
   selector: 'ng-journal-list',
@@ -20,37 +21,39 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [
     CommonModule,
     RouterLink,
+    HeaderComponent,
     ...primeNgModules,
     ContractStatusChipComponent,
     ContractStatusChipStylePipe,
   ],
-  template: ` <p-table [value]="contracts()" [rowHover]="true">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Policynumber</th>
-        <th>Status</th>
-        <th>Insurance Start On</th>
-        <th>Customer</th>
-        <th>Phone</th>
-        <th>Email</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-contract>
-      <tr [routerLink]="['/', 'contract', contract.id, 'details']">
-        <td>{{ contract.policyNumber }}</td>
-        <td>
-          <ng-journal-contract-status-chip
-            [label]="contract.status"
-            [style]="contract.status | contractStatusChipStyle"
-          />
-        </td>
-        <td>{{ contract.insuranceStartOn | date }}</td>
-        <td>{{ contract.customer.label }}</td>
-        <td>{{ contract.customer.phone }}</td>
-        <td>{{ contract.customer.email }}</td>
-      </tr>
-    </ng-template>
-  </p-table>`,
+  template: ` <ng-journal-header title="Contracts" />
+    <p-table [value]="contracts()" [rowHover]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Policynumber</th>
+          <th>Status</th>
+          <th>Insurance Start On</th>
+          <th>Customer</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-contract>
+        <tr [routerLink]="['/', 'contract', contract.id, 'details']">
+          <td>{{ contract.policyNumber }}</td>
+          <td>
+            <ng-journal-contract-status-chip
+              [label]="contract.status"
+              [style]="contract.status | contractStatusChipStyle"
+            />
+          </td>
+          <td>{{ contract.insuranceStartOn | date }}</td>
+          <td>{{ contract.customer.label }}</td>
+          <td>{{ contract.customer.phone }}</td>
+          <td>{{ contract.customer.email }}</td>
+        </tr>
+      </ng-template>
+    </p-table>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
