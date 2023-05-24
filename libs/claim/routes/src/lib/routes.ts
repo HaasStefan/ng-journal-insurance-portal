@@ -14,6 +14,11 @@ export const routes: Routes = [
         loadComponent: async () =>
           (await import('@ng-journal/claim/feature-details')).DetailsComponent,
       },
+      {
+        path: 'create',
+        loadComponent: async () =>
+          (await import('@ng-journal/claim/feature-create')).CreateComponent,
+      },
     ],
   },
 ];

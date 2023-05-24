@@ -73,7 +73,7 @@ export class ContractFacadeService {
 
   createContract(contract: Contract) {
     const contractDto: ContractDto = {
-      id: `${Math.random()}`,
+      id: `${Math.floor(Math.random() * 100000)}`,
       policyNumber: contract.policyNumber,
       insuranceStartOn: contract.insuranceStartOn,
       customer: contract.customer?.id ?? '',

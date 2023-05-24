@@ -31,7 +31,6 @@ import {
     CommonModule,
     ComplaintFormComponent,
     HeaderComponent,
-    ComplaintFormComponent,
     CardComponent,
     ButtonComponent,
     ButtonActionDirective,

@@ -50,11 +50,14 @@ import { Subject, takeUntil } from 'rxjs';
 
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
-          <ng-journal-hyperlink
-            [route]="['/customer', claim.contract.customer.id, 'details']"
-          >
-            {{ claim.contract.customer.name }}
-          </ng-journal-hyperlink>
+          <ng-container *ngIf="claim.contract.customer; else noCustomer">
+            <ng-journal-hyperlink
+              [route]="['/customer', claim.contract.customer.id, 'details']"
+            >
+              {{ claim.contract.customer.name }}
+            </ng-journal-hyperlink>
+          </ng-container>
+          <ng-template #noCustomer> - </ng-template>
         </div>
       </ng-journal-card>
     </ng-container>`,

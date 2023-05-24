@@ -2,13 +2,14 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { ClaimState } from '../state/claim-state.model';
 import { ClaimDataService } from '../data-services/claim-data.service';
 import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
-import { Claim } from '@ng-journal/claim/models';
+import { Claim, ClaimDto, ContractOption } from '@ng-journal/claim/models';
 import { ContractDataService } from '@ng-journal/contract/api-claim';
 import { CustomerDataService } from '@ng-journal/customer/api-claim';
 
 const initialState: Readonly<ClaimState> = {
   claims: [],
   selectedClaim: null,
+  contracts: [],
 };
 
 @Injectable({
@@ -22,6 +23,7 @@ export class ClaimFacadeService {
   readonly #state = signal(initialState);
   readonly claims = computed(() => this.#state().claims);
   readonly selectedClaim = computed(() => this.#state().selectedClaim);
+  readonly contracts = computed(() => this.#state().contracts);
   #loaded = false;
 
   loadClaims() {
@@ -48,6 +50,42 @@ export class ClaimFacadeService {
         this.#state.update((state) => ({
           ...state,
           selectedClaim: claim,
+        }))
+      )
+    );
+  }
+
+  createClaim(claim: Claim) {
+    const claimDto: ClaimDto = {
+      ...claim,
+      contract: claim.contract.id,
+    };
+
+    return this.#claimDataService.post(claimDto).pipe(
+      tap(() =>
+        this.#state.update((state) => ({
+          ...state,
+          claims: [...state.claims, claim],
+        }))
+      )
+    );
+  }
+
+  loadContracts() {
+    return this.#contractDataService.getAll().pipe(
+      map((contracts) =>
+        contracts.map(
+          (contract) =>
+            ({
+              id: contract.id,
+              policyNumber: contract.policyNumber,
+            } as ContractOption)
+        )
+      ),
+      tap((contracts) =>
+        this.#state.update((state) => ({
+          ...state,
+          contracts,
         }))
       )
     );

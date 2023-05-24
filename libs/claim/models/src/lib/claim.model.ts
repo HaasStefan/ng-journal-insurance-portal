@@ -6,7 +6,7 @@ export type Claim = Omit<Omit<ClaimDto, 'contract'>, 'damageType'> & {
   contract: {
     id: string;
     policyNumber: string;
-    customer: {
+    customer?: {
       id: string;
       name: string;
     };

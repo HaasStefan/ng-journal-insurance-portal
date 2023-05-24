@@ -9,7 +9,6 @@ import { ClaimFacadeService } from '@ng-journal/claim/data-access';
 import { RouterLink } from '@angular/router';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
 import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
@@ -33,7 +32,12 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
           <td>{{ claim.damageType }}</td>
           <td>{{ claim.date | date }}</td>
           <td>{{ claim.contract.policyNumber }}</td>
-          <td>{{ claim.contract.customer.name }}</td>
+          <td>
+            <ng-container *ngIf="claim.contract.customer; else noCustomer">
+              {{ claim.contract.customer.name }}
+            </ng-container>
+            <ng-template #noCustomer> - </ng-template>
+          </td>
         </tr>
       </ng-template>
     </p-table>`,
@@ -45,7 +49,6 @@ export class ListComponent implements OnInit {
   readonly claims = this.#claimFacade.claims;
   readonly #loadClaims$ = this.#claimFacade
     .loadClaims()
-    .pipe(tap(console.log))
     .pipe(takeUntilDestroyed());
 
   ngOnInit(): void {

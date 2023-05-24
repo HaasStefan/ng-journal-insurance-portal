@@ -78,7 +78,7 @@ export class ComplaintFacadeService {
   createComplaint(complaint: Complaint) {
     const complaintDto: ComplaintDto = {
       ...complaint,
-      id: `${Math.random()}`,
+      id: `${Math.floor(Math.random() * 100000)}`,
       customer: complaint.customer?.id ?? '',
     };
 

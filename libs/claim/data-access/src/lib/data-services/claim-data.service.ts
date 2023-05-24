@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
 import { ClaimDto } from '@ng-journal/claim/models';
-import { map } from 'rxjs';
+import { delay, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +19,10 @@ export class ClaimDataService {
 
   getAll() {
     return this.#http.get<ClaimDto[]>(`${this.#baseUrl}/assets/claims.json`);
+  }
+
+  post(claim: ClaimDto) {
+    // fake http call
+    return of(claim).pipe(delay(1000));
   }
 }
