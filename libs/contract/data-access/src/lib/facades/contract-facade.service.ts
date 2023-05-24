@@ -77,7 +77,6 @@ export class ContractFacadeService {
       policyNumber: contract.policyNumber,
       insuranceStartOn: contract.insuranceStartOn,
       customer: contract.customer?.id ?? '',
-      claims: [],
       status: contract.status,
     };
 
@@ -97,7 +96,6 @@ export class ContractFacadeService {
       policyNumber: contract.policyNumber,
       insuranceStartOn: contract.insuranceStartOn,
       customer: contract.customer?.id ?? '',
-      claims: contract.claims,
       status: contract.status,
     };
 

@@ -33,7 +33,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <th>Customer</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Has Claims</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-contract>
@@ -49,7 +48,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <td>{{ contract.customer.label }}</td>
         <td>{{ contract.customer.phone }}</td>
         <td>{{ contract.customer.email }}</td>
-        <td>{{ contract.claims.lenght > 0 }}</td>
       </tr>
     </ng-template>
   </p-table>`,

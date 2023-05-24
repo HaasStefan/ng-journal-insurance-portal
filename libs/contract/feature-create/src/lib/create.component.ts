@@ -103,7 +103,6 @@ export class CreateComponent implements OnInit {
           phone: '',
           email: '',
         },
-        claims: [],
         id: '',
         policyNumber,
         status: ContractStatusDto.Pending,

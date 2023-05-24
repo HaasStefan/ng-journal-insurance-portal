@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
-
-type ClaimType = unknown;
+import { ClaimDto } from '@ng-journal/claim/models';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +12,12 @@ export class ClaimDataService {
   readonly #baseUrl = inject(BaseUrl);
 
   get(id: string) {
-    return this.#http.get<ClaimType>(`${this.#baseUrl}/claim/${id}`);
+    return this.getAll().pipe(
+      map((claims) => claims.find((c) => c.id === id) ?? null)
+    );
   }
 
   getAll() {
-    return this.#http.get<ClaimType[]>(`${this.#baseUrl}/claims`);
+    return this.#http.get<ClaimDto[]>(`${this.#baseUrl}/assets/claims.json`);
   }
 }

@@ -5,6 +5,5 @@ export interface ContractDto {
   policyNumber: string;
   insuranceStartOn: Date;
   customer: string;
-  claims: string[];
   status: ContractStatusDto;
 }

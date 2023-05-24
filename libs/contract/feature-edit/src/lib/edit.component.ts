@@ -155,7 +155,6 @@ export class EditComponent implements OnInit {
           phone: '',
           email: '',
         },
-        claims: [],
         id: this.#id,
         policyNumber,
         status: status.id,

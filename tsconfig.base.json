@@ -50,6 +50,9 @@
       "@ng-journal/complaint/routes": ["libs/complaint/routes/src/index.ts"],
       "@ng-journal/complaint/ui": ["libs/complaint/ui/src/index.ts"],
       "@ng-journal/complaint/utils": ["libs/complaint/utils/src/index.ts"],
+      "@ng-journal/contract/api-claim": [
+        "libs/contract/api-claim/src/index.ts"
+      ],
       "@ng-journal/contract/data-access": [
         "libs/contract/data-access/src/index.ts"
       ],
@@ -69,6 +72,9 @@
       "@ng-journal/contract/routes": ["libs/contract/routes/src/index.ts"],
       "@ng-journal/contract/ui": ["libs/contract/ui/src/index.ts"],
       "@ng-journal/contract/utils": ["libs/contract/utils/src/index.ts"],
+      "@ng-journal/customer/api-claim": [
+        "libs/customer/api-claim/src/index.ts"
+      ],
       "@ng-journal/customer/api-complaint": [
         "libs/customer/api-complaint/src/index.ts"
       ],

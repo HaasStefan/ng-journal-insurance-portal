@@ -88,7 +88,12 @@
               },
               {
                 "sourceTag": "domain:claim",
-                "onlyDependOnLibsWithTags": ["domain:claim", "domain:shared"]
+                "onlyDependOnLibsWithTags": [
+                  "domain:claim",
+                  "domain:shared",
+                  "domain:contract/api-claim",
+                  "domain:customer/api-claim"
+                ]
               },
               {
                 "sourceTag": "domain:complaint",
