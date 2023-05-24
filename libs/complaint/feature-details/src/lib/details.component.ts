@@ -30,7 +30,9 @@ import { primeNgModules } from '@ng-journal/shared/utils';
       <ng-journal-card additionalClasses="grid">
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
-          <ng-journal-hyperlink [route]="['/customer', complaint.customer?.id]">
+          <ng-journal-hyperlink
+            [route]="['/customer', complaint.customer?.id, 'details']"
+          >
             {{ complaint.customer?.label }}
           </ng-journal-hyperlink>
         </div>

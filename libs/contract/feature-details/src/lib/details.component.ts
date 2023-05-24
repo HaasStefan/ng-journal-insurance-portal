@@ -54,7 +54,9 @@ import { Subject, takeUntil } from 'rxjs';
 
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
-          <ng-journal-hyperlink [route]="['/customer', contract.customer?.id]">
+          <ng-journal-hyperlink
+            [route]="['/customer', contract.customer?.id, 'details']"
+          >
             {{ contract.customer?.label }}
           </ng-journal-hyperlink>
         </div>
