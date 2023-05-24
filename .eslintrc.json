@@ -60,6 +60,7 @@
               {
                 "sourceTag": "type:data-access",
                 "onlyDependOnLibsWithTags": [
+                  "type:data-access",
                   "type:utils",
                   "type:api",
                   "type:models"
@@ -67,11 +68,11 @@
               },
               {
                 "sourceTag": "type:utils",
-                "onlyDependOnLibsWithTags": ["type:models"]
+                "onlyDependOnLibsWithTags": ["type:utils", "type:models"]
               },
               {
                 "sourceTag": "type:models",
-                "onlyDependOnLibsWithTags": []
+                "onlyDependOnLibsWithTags": ["type:models"]
               },
               {
                 "sourceTag": "domain:shared",
