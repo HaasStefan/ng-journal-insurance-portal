@@ -7,11 +7,7 @@ import {
   HeaderComponent,
 } from '@ng-journal/shared/ui';
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
-import {
-  ContractFormComponent,
-  createContractForm,
-  CustomerOption,
-} from '@ng-journal/contract/ui';
+import { ContractFormComponent } from '@ng-journal/contract/ui';
 import { MessageService } from 'primeng/api';
 import {
   takeUntilDestroyed,
@@ -28,8 +24,13 @@ import {
   tap,
 } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { ContractStatus, ContractViewModel } from '@ng-journal/contract/models';
+import {
+  ContractStatus,
+  ContractViewModel,
+  CustomerOption,
+} from '@ng-journal/contract/models';
 import { primeNgModules } from '@ng-journal/shared/utils';
+import { createContractForm } from '@ng-journal/contract/utils';
 
 interface ContractStatusOption {
   label: ContractStatus;

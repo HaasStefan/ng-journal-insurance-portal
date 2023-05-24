@@ -70,6 +70,7 @@
       "@ng-journal/contract/models": ["libs/contract/models/src/index.ts"],
       "@ng-journal/contract/routes": ["libs/contract/routes/src/index.ts"],
       "@ng-journal/contract/ui": ["libs/contract/ui/src/index.ts"],
+      "@ng-journal/contract/utils": ["libs/contract/utils/src/index.ts"],
       "@ng-journal/customer/api-complaint": [
         "libs/customer/api-complaint/src/index.ts"
       ],

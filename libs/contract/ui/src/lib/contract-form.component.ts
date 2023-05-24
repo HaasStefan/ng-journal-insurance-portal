@@ -1,59 +1,13 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import {
   ContractStatusChipComponent,
   ContractStatusChipStyle,
 } from './contract-status-chip.component';
-import { ContractStatus } from '@ng-journal/contract/models';
-
-export interface ContractStatusOption {
-  label: ContractStatus;
-  id: ContractStatus;
-}
-
-export type ContractForm = ReturnType<typeof createContractForm>;
-
-export function createContractForm(
-  params: {
-    policyNumber: string;
-    insuranceStartOn: Date | null;
-    customer: CustomerOption | null;
-    status: ContractStatusOption | null;
-  } = {
-    policyNumber: '',
-    insuranceStartOn: null,
-    customer: null,
-    status: null,
-  },
-  fb = inject(FormBuilder)
-) {
-  return fb.group({
-    policyNumber: fb.control<string>(params.policyNumber, [
-      Validators.required,
-    ]),
-    insuranceStartOn: fb.control<Date | null>(params.insuranceStartOn, [
-      Validators.required,
-    ]),
-    customer: fb.control<CustomerOption | null>(params.customer, [
-      Validators.required,
-    ]),
-    status: fb.control<ContractStatusOption | null>(params.status, [
-      Validators.required,
-    ]),
-  });
-}
-
-export type CustomerOption = {
-  id: string;
-  label: string;
-};
+import { ContractStatus, CustomerOption } from '@ng-journal/contract/models';
+import { ContractForm } from '@ng-journal/contract/utils';
 
 @Component({
   selector: 'ng-journal-contract-form',

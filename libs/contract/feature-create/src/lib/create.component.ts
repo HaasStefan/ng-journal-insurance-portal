@@ -15,8 +15,6 @@ import {
 import {
   ContractFormComponent,
   ContractStatusChipComponent,
-  createContractForm,
-  CustomerOption,
 } from '@ng-journal/contract/ui';
 import { map, Observable, tap } from 'rxjs';
 import {
@@ -25,8 +23,13 @@ import {
   toSignal,
 } from '@angular/core/rxjs-interop';
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
-import { ContractStatus, ContractViewModel } from '@ng-journal/contract/models';
+import {
+  ContractStatus,
+  ContractViewModel,
+  CustomerOption,
+} from '@ng-journal/contract/models';
 import { MessageService } from 'primeng/api';
+import { createContractForm } from '@ng-journal/contract/utils';
 
 @Component({
   selector: 'ng-journal-create',
