@@ -95,7 +95,7 @@ export class DetailsComponent implements OnDestroy {
   }
 
   onEditButtonClicked(): void {
-    this.#router.navigate(['edit', this.id], {
+    this.#router.navigate([this.id, 'edit'], {
       relativeTo: this.#route.parent,
     });
   }

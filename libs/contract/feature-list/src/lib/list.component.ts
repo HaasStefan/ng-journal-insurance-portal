@@ -37,7 +37,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-contract>
-      <tr [routerLink]="['/', 'contract', contract.id]">
+      <tr [routerLink]="['/', 'contract', contract.id, 'details']">
         <td>{{ contract.policyNumber }}</td>
         <td>
           <ng-journal-contract-status-chip

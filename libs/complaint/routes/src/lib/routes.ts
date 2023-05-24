@@ -16,7 +16,7 @@ export const routes: Routes = [
             .CreateComponent,
       },
       {
-        path: ':id',
+        path: ':id/details',
         loadComponent: async () =>
           (await import('@ng-journal/complaint/feature-details'))
             .DetailsComponent,

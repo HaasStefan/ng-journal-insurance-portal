@@ -10,7 +10,7 @@ export const routes: Routes = [
           (await import('@ng-journal/customer/feature-list')).ListComponent,
       },
       {
-        path: ':id',
+        path: ':id/details',
         loadComponent: async () =>
           (await import('@ng-journal/customer/feature-details'))
             .DetailsComponent,

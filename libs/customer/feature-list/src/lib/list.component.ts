@@ -28,7 +28,7 @@ import { RouterLink } from '@angular/router';
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-customer>
-      <tr [routerLink]="['/', 'customer', customer.id]">
+      <tr [routerLink]="['/', 'customer', customer.id, 'details']">
         <td>{{ customer.firstName }}</td>
         <td>{{ customer.lastName }}</td>
         <td>{{ customer.phone }}</td>

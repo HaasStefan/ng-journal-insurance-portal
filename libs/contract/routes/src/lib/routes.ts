@@ -15,12 +15,12 @@ export const routes: Routes = [
           (await import('@ng-journal/contract/feature-create')).CreateComponent,
       },
       {
-        path: 'edit/:id',
+        path: ':id/edit',
         loadComponent: async () =>
           (await import('@ng-journal/contract/feature-edit')).EditComponent,
       },
       {
-        path: ':id',
+        path: ':id/details',
         loadComponent: async () =>
           (await import('@ng-journal/contract/feature-details'))
             .DetailsComponent,

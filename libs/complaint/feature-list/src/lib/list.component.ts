@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-complaint>
-      <tr [routerLink]="['/', 'complaint', complaint.id]">
+      <tr [routerLink]="['/', 'complaint', complaint.id, 'details']">
         <td>{{ complaint.type }}</td>
         <td>{{ complaint.customer?.label }}</td>
         <td>{{ complaint.date | date }}</td>

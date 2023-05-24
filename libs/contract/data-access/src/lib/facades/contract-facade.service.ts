@@ -26,7 +26,6 @@ export class ContractFacadeService {
   readonly contracts = computed(() => this.#state().contracts);
   readonly customers = computed(() => this.#state().customers);
   readonly selectedContract = computed(() => this.#state().selectedContract);
-
   #loaded = false;
 
   loadContracts() {
@@ -39,7 +38,13 @@ export class ContractFacadeService {
 
   loadContract(id: string) {
     return of(null).pipe(
-      this.#loadAll(),
+      switchMap(() => {
+        if (this.#loaded) {
+          return of(null);
+        }
+
+        return of(null).pipe(this.#loadAll());
+      }),
       map(() => id),
       map((id) => this.contracts().find((c) => c.id === id)),
       filter((contract): contract is ContractViewModel => !!contract),

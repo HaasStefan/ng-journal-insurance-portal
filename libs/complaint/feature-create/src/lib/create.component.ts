@@ -16,8 +16,8 @@ import {
 import { ButtonActionDirective } from '@ng-journal/shared/ui-directives';
 import { createComplaintForm } from '@ng-journal/complaint/utils';
 import { MessageService } from 'primeng/api';
-import { map, Observable } from 'rxjs';
-import { Customer } from '@ng-journal/complaint/models';
+import { map, Observable, tap } from 'rxjs';
+import { ComplaintViewModel, Customer } from '@ng-journal/complaint/models';
 import {
   takeUntilDestroyed,
   toObservable,
@@ -86,6 +86,29 @@ export class CreateComponent implements OnInit {
   }
 
   createComplaint() {
-    // todo: implement
+    const { date, type, customer, description } = this.form.getRawValue();
+
+    if (!!date && !!type && !!customer && !!description) {
+      const complaint: ComplaintViewModel = {
+        id: '',
+        date,
+        type,
+        customer,
+        description,
+      };
+
+      this.action.set(
+        this.#complaintFacade.createComplaint(complaint).pipe(
+          tap(() => this.form.reset()),
+          tap(() =>
+            this.#messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Complaint created successfully',
+            })
+          )
+        )
+      );
+    }
   }
 }
