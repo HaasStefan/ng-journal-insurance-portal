@@ -52,6 +52,7 @@
       "@ng-journal/complaint/models": ["libs/complaint/models/src/index.ts"],
       "@ng-journal/complaint/routes": ["libs/complaint/routes/src/index.ts"],
       "@ng-journal/complaint/ui": ["libs/complaint/ui/src/index.ts"],
+      "@ng-journal/complaint/utils": ["libs/complaint/utils/src/index.ts"],
       "@ng-journal/contract/data-access": [
         "libs/contract/data-access/src/index.ts"
       ],

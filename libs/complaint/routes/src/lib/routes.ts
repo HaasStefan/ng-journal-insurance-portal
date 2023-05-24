@@ -10,6 +10,12 @@ export const routes: Routes = [
           (await import('@ng-journal/complaint/feature-list')).ListComponent,
       },
       {
+        path: 'create',
+        loadComponent: async () =>
+          (await import('@ng-journal/complaint/feature-create'))
+            .CreateComponent,
+      },
+      {
         path: ':id',
         loadComponent: async () =>
           (await import('@ng-journal/complaint/feature-details'))

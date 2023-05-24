@@ -2,14 +2,19 @@ import { Injectable, inject, signal, computed } from '@angular/core';
 import { ComplaintState } from '../state/complaint-state.model';
 import { ComplaintDataService } from '../data-services/complaint-data.service';
 import { filter, map, switchMap, tap } from 'rxjs';
-import { Complaint, ComplaintViewModel } from '@ng-journal/complaint/models';
+import {
+  Complaint,
+  ComplaintViewModel,
+  Customer,
+} from '@ng-journal/complaint/models';
 import {
   CustomerDataService,
-  Customer,
+  Customer as CustomerDto,
 } from '@ng-journal/customer/api-complaint';
 
 const initialState: Readonly<ComplaintState> = {
   complaints: [],
+  customers: [],
   selectedComplaint: null,
 };
 
@@ -22,6 +27,7 @@ export class ComplaintFacadeService {
 
   readonly #state = signal(initialState);
   readonly complaints = computed(() => this.#state().complaints);
+  readonly customers = computed(() => this.#state().customers);
   readonly selectedComplaint = computed(() => this.#state().selectedComplaint);
 
   loadComplaint(id: string) {
@@ -29,7 +35,9 @@ export class ComplaintFacadeService {
       filter((complaint): complaint is NonNullable<Complaint> => !!complaint),
       switchMap((complaint) =>
         this.#customerDataService.get(complaint.customer).pipe(
-          filter((customer): customer is NonNullable<Customer> => !!customer),
+          filter(
+            (customer): customer is NonNullable<CustomerDto> => !!customer
+          ),
           map((customer) => {
             const complaintViewModel: ComplaintViewModel = {
               ...complaint,
@@ -43,10 +51,10 @@ export class ComplaintFacadeService {
         )
       ),
       tap((complaint) => {
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           selectedComplaint: complaint,
-        });
+        }));
       })
     );
   }
@@ -75,11 +83,29 @@ export class ComplaintFacadeService {
         )
       ),
       tap((complaints) => {
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           complaints,
-        });
+        }));
       })
+    );
+  }
+
+  loadCustomers() {
+    return this.#customerDataService.getAll().pipe(
+      map((customers) =>
+        customers.map((c) => {
+          const customer: Customer = {
+            ...c,
+            label: `${c.firstName} ${c.lastName}`,
+          };
+
+          return customer;
+        })
+      ),
+      tap((customers) =>
+        this.#state.update((state) => ({ ...state, customers }))
+      )
     );
   }
 }

@@ -21,10 +21,10 @@ export class CustomerFacadeService {
   loadCustomer(id: string) {
     return this.#customerDataService.get(id).pipe(
       tap((customer) =>
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           selectedCustomer: customer,
-        })
+        }))
       )
     );
   }
@@ -32,10 +32,10 @@ export class CustomerFacadeService {
   loadCustomers() {
     return this.#customerDataService.getAll().pipe(
       tap((customers) =>
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           customers,
-        })
+        }))
       )
     );
   }

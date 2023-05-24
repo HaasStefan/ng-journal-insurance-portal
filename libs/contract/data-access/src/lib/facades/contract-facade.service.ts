@@ -44,10 +44,10 @@ export class ContractFacadeService {
       map((id) => this.contracts().find((c) => c.id === id)),
       filter((contract): contract is ContractViewModel => !!contract),
       tap((contract) =>
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           selectedContract: contract,
-        })
+        }))
       )
     );
   }
@@ -64,7 +64,9 @@ export class ContractFacadeService {
           return customer;
         })
       ),
-      tap((customers) => this.#state.set({ ...this.#state(), customers }))
+      tap((customers) =>
+        this.#state.update((state) => ({ ...state, customers }))
+      )
     );
   }
 
@@ -80,10 +82,10 @@ export class ContractFacadeService {
 
     return this.#contractDataService.post(contractDto).pipe(
       tap(() =>
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           contracts: [...this.contracts(), contract],
-        })
+        }))
       )
     );
   }
@@ -100,12 +102,12 @@ export class ContractFacadeService {
 
     return this.#contractDataService.put(contractDto).pipe(
       tap(() =>
-        this.#state.set({
-          ...this.#state(),
+        this.#state.update((state) => ({
+          ...state,
           contracts: this.contracts().map((c) =>
             c.id === contract.id ? contract : c
           ),
-        })
+        }))
       )
     );
   }
@@ -145,7 +147,9 @@ export class ContractFacadeService {
             return contract;
           })
         ),
-        tap((contracts) => this.#state.set({ ...this.#state(), contracts }))
+        tap((contracts) =>
+          this.#state.update((state) => ({ ...state, contracts }))
+        )
       );
   }
 }
