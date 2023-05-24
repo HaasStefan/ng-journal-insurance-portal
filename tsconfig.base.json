@@ -34,6 +34,7 @@
       "@ng-journal/claim/models": ["libs/claim/models/src/index.ts"],
       "@ng-journal/claim/routes": ["libs/claim/routes/src/index.ts"],
       "@ng-journal/claim/ui": ["libs/claim/ui/src/index.ts"],
+      "@ng-journal/claim/utils": ["libs/claim/utils/src/index.ts"],
       "@ng-journal/complaint/data-access": [
         "libs/complaint/data-access/src/index.ts"
       ],

@@ -1,4 +1,4 @@
-export enum DamageType {
+export enum DamageTypeDto {
   Collision = 'Collision',
   Explosion = 'Explosion',
   Fire = 'Fire',
