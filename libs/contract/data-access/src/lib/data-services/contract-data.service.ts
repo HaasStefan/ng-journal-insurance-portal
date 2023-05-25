@@ -2,34 +2,27 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaseUrl } from '@ng-journal/shared/utils';
 import { ContractDto } from '@ng-journal/contract/models';
-import { delay, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContractDataService {
   readonly #http = inject(HttpClient);
-  readonly #baseUrl = inject(BaseUrl);
+  readonly #url = `${inject(BaseUrl)}contracts`;
 
   get(id: string) {
-    return this.getAll().pipe(
-      map((contracts) => contracts.find((c) => c.id === id) ?? null)
-    );
+    return this.#http.get<ContractDto>(`${this.#url}/${id}`);
   }
 
   getAll() {
-    return this.#http.get<ContractDto[]>(
-      `${this.#baseUrl}/assets/contracts.json`
-    );
+    return this.#http.get<ContractDto[]>(this.#url);
   }
 
   post(contract: ContractDto) {
-    // fake http call
-    return of(contract).pipe(delay(1000));
+    return this.#http.post<ContractDto>(this.#url, contract);
   }
 
   put(contract: ContractDto) {
-    // fake http call
-    return of(contract).pipe(delay(1000));
+    return this.#http.put<ContractDto>(this.#url, contract);
   }
 }

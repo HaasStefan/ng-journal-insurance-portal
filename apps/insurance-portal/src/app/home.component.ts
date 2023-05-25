@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
     <ng-journal-header title="Home" />
 
     <div class="flex flex-column w-full justify-content-evenly">
-      <a routerLink="/complaint/list" class="no-underline text-white text-4xl">
+      <a routerLink="/contract/list" class="no-underline text-white text-4xl">
         <ng-journal-card
           additionalClasses="surface-700 flex justify-content-center"
         >
