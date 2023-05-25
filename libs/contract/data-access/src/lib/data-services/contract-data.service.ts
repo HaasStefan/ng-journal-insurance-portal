@@ -8,21 +8,21 @@ import { ContractDto } from '@ng-journal/contract/models';
 })
 export class ContractDataService {
   readonly #http = inject(HttpClient);
-  readonly #baseUrl = inject(BaseUrl);
+  readonly #url = `${inject(BaseUrl)}contracts`;
 
   get(id: string) {
-    return this.#http.get<ContractDto>(`${this.#baseUrl}contracts/${id}`);
+    return this.#http.get<ContractDto>(`${this.#url}/${id}`);
   }
 
   getAll() {
-    return this.#http.get<ContractDto[]>(`${this.#baseUrl}contracts`);
+    return this.#http.get<ContractDto[]>(this.#url);
   }
 
   post(contract: ContractDto) {
-    return this.#http.post<ContractDto>(`${this.#baseUrl}contracts`, contract);
+    return this.#http.post<ContractDto>(this.#url, contract);
   }
 
   put(contract: ContractDto) {
-    return this.#http.put<ContractDto>(`${this.#baseUrl}contracts`, contract);
+    return this.#http.put<ContractDto>(this.#url, contract);
   }
 }
