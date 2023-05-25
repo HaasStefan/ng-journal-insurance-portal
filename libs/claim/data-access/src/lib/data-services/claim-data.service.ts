@@ -18,7 +18,7 @@ export class ClaimDataService {
   }
 
   getAll() {
-    return this.#http.get<ClaimDto[]>(`${this.#baseUrl}/assets/claims.json`);
+    return this.#http.get<ClaimDto[]>(`${location.origin}/assets/claims.json`);
   }
 
   post(claim: ClaimDto) {

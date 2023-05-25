@@ -1,6 +1,6 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 
 export const BaseUrl = new InjectionToken<string>('BaseUrl', {
-    providedIn: 'root',
-    factory: () => location.origin
+  providedIn: 'root',
+  factory: () => 'http://localhost:3000/api/',
 });

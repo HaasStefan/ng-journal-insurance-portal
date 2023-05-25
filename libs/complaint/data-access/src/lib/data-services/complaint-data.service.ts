@@ -19,7 +19,7 @@ export class ComplaintDataService {
 
   getAll() {
     return this.#http.get<ComplaintDto[]>(
-      `${this.#baseUrl}/assets/complaints.json`
+      `${location.origin}/assets/complaints.json`
     );
   }
 

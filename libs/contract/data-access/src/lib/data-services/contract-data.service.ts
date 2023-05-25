@@ -19,7 +19,7 @@ export class ContractDataService {
 
   getAll() {
     return this.#http.get<ContractDto[]>(
-      `${this.#baseUrl}/assets/contracts.json`
+      `${location.origin}/assets/contracts.json`
     );
   }
 

@@ -13,7 +13,7 @@ import { SidebarComponent } from './sidebar.component';
 
     <div class="flex flex-column h-full">
       <div
-        class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center fixed"
+        class="surface-800 w-full h-4rem text-white font-bold text-3xl flex flex-column pl-3 justify-content-center fixed z-5"
       >
         <a
           href="https://www.ng-journal.com"

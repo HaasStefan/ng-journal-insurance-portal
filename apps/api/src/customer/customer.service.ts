@@ -8,7 +8,7 @@ export class CustomerService {
   readonly #customers = new BehaviorSubject<Customer[]>([]);
 
   constructor() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 30; i++) {
       const customer: Customer = {
         id: faker.string.uuid(),
         firstName: faker.person.firstName(),
