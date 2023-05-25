@@ -1,7 +1,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { ComplaintState } from '../state/complaint-state.model';
 import { ComplaintDataService } from '../data-services/complaint-data.service';
-import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import {
   ComplaintDto,
   Complaint,
@@ -26,20 +26,20 @@ export class ComplaintFacadeService {
   readonly complaints = computed(() => this.#state().complaints);
   readonly customers = computed(() => this.#state().customers);
   readonly selectedComplaint = computed(() => this.#state().selectedComplaint);
-  #loaded = false;
 
   loadComplaint(id: string) {
-    return of(null).pipe(
-      switchMap(() => {
-        if (this.#loaded) {
-          return of(null);
-        }
-
-        return of(null).pipe(this.#loadAll());
-      }),
-      map(() => id),
-      map((id) => this.complaints().find((c) => c.id === id)),
-      filter((complaint): complaint is Complaint => !!complaint),
+    return this.#complaintDataService.get(id).pipe(
+      switchMap((complaint) =>
+        this.#customerDataService.get(complaint.customer).pipe(
+          map((customer) => ({
+            ...complaint,
+            customer: {
+              ...customer,
+              label: `${customer.firstName} ${customer.lastName}`,
+            },
+          }))
+        )
+      ),
       tap((complaint) =>
         this.#state.update((state) => ({
           ...state,
@@ -50,10 +50,38 @@ export class ComplaintFacadeService {
   }
 
   loadComplaints() {
-    return of(null).pipe(
-      filter(() => !this.#loaded),
-      this.#loadAll(),
-      tap(() => (this.#loaded = true))
+    return this.#complaintDataService.getAll().pipe(
+      switchMap((complaints) =>
+        this.#customerDataService
+          .getAll()
+          .pipe(map((customers) => ({ complaints, customers })))
+      ),
+      map(({ complaints, customers }) =>
+        complaints.map((complaintDto) => {
+          const customer = customers.find(
+            (c) => c.id === complaintDto.customer
+          );
+          if (!customer) {
+            return null;
+          }
+
+          const complaint: Complaint = {
+            ...complaintDto,
+            customer: {
+              ...customer,
+              label: `${customer.firstName} ${customer.lastName}`,
+            },
+          };
+
+          return complaint;
+        })
+      ),
+      map((complaints) =>
+        complaints.filter((c): c is NonNullable<typeof c> => !!c)
+      ),
+      tap((complaints) =>
+        this.#state.update((state) => ({ ...state, complaints }))
+      )
     );
   }
 
@@ -90,42 +118,5 @@ export class ComplaintFacadeService {
         }));
       })
     );
-  }
-
-  #loadAll<T>(): (source$: Observable<T>) => Observable<Complaint[]> {
-    return (source$) =>
-      source$.pipe(
-        switchMap(() =>
-          this.#complaintDataService.getAll().pipe(
-            switchMap((complaintDtos) =>
-              this.#customerDataService.getAll().pipe(
-                map((customerDtos) =>
-                  customerDtos.map(({ id, firstName, lastName }) => ({
-                    id,
-                    label: `${firstName} ${lastName}`,
-                  }))
-                ),
-                map((customerDtos) => {
-                  return complaintDtos.map((dto) => {
-                    const complaint: Complaint = {
-                      ...dto,
-                      customer:
-                        customerDtos.find((c) => c.id === dto.customer) ?? null,
-                    };
-
-                    return complaint;
-                  });
-                })
-              )
-            ),
-            tap((complaints) => {
-              this.#state.update((state) => ({
-                ...state,
-                complaints,
-              }));
-            })
-          )
-        )
-      );
   }
 }

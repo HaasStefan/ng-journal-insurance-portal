@@ -23,6 +23,7 @@ import {
   toObservable,
   toSignal,
 } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-create',
@@ -60,6 +61,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponent implements OnInit {
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
   readonly #complaintFacade = inject(ComplaintFacadeService);
   readonly #messageService = inject(MessageService);
   readonly #customers$ = toObservable(this.#complaintFacade.customers).pipe(
@@ -104,6 +107,11 @@ export class CreateComponent implements OnInit {
               severity: 'success',
               summary: 'Success',
               detail: 'Complaint created successfully',
+            })
+          ),
+          tap((c) =>
+            this.#router.navigate(['../', c.id, 'details'], {
+              relativeTo: this.#route,
             })
           )
         )

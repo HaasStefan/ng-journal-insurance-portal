@@ -31,6 +31,7 @@ import {
 } from '@ng-journal/contract/models';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { createContractForm } from '@ng-journal/contract/utils';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface ContractStatusOption {
   label: ContractStatusDto;
@@ -72,9 +73,10 @@ interface ContractStatusOption {
   styles: [],
 })
 export class EditComponent implements OnInit {
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #messageService = inject(MessageService);
-  readonly #fb = inject(FormBuilder);
   readonly #destroy = new Subject<void>();
   #id!: string;
   @Input() set id(id: string) {
@@ -168,6 +170,11 @@ export class EditComponent implements OnInit {
               severity: 'success',
               summary: 'Success',
               detail: 'Contract updated successfully',
+            })
+          ),
+          tap((c) =>
+            this.#router.navigate(['../', 'details'], {
+              relativeTo: this.#route,
             })
           )
         )

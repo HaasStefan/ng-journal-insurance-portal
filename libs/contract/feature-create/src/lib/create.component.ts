@@ -30,6 +30,7 @@ import {
 } from '@ng-journal/contract/models';
 import { MessageService } from 'primeng/api';
 import { createContractForm } from '@ng-journal/contract/utils';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-create',
@@ -67,6 +68,8 @@ import { createContractForm } from '@ng-journal/contract/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponent implements OnInit {
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #messageService = inject(MessageService);
   readonly #customers$ = toObservable(this.#contractFacade.customers).pipe(
@@ -116,6 +119,11 @@ export class CreateComponent implements OnInit {
               severity: 'success',
               summary: 'Success',
               detail: 'Contract created successfully',
+            })
+          ),
+          tap((c) =>
+            this.#router.navigate(['../', c.id, 'details'], {
+              relativeTo: this.#route,
             })
           )
         )

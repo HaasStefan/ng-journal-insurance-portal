@@ -22,28 +22,59 @@ export class ContractFacadeService {
   readonly contracts = computed(() => this.#state().contracts);
   readonly customers = computed(() => this.#state().customers);
   readonly selectedContract = computed(() => this.#state().selectedContract);
-  #loaded = false;
 
   loadContracts() {
-    return of(null).pipe(
-      filter(() => !this.#loaded),
-      this.#loadAll(),
-      tap(() => (this.#loaded = true))
+    return this.#contractDataService.getAll().pipe(
+      switchMap((contracts) =>
+        this.#customerDataService
+          .getAll()
+          .pipe(map((customers) => ({ contracts, customers })))
+      ),
+      map(({ contracts, customers }) =>
+        contracts.map((contractDto) => {
+          const customer = customers.find((c) => c.id === contractDto.customer);
+          if (!customer) {
+            return null;
+          }
+
+          const contract: Contract = {
+            ...contractDto,
+            customer: {
+              id: customer.id,
+              phone: customer.phone,
+              email: customer.email,
+              label: `${customer.firstName} ${customer.lastName}`,
+            },
+          };
+
+          return contract;
+        })
+      ),
+      filter((contracts): contracts is Contract[] => !!contracts),
+      tap((contracts) =>
+        this.#state.update((state) => ({
+          ...state,
+          contracts,
+        }))
+      )
     );
   }
 
   loadContract(id: string) {
-    return of(null).pipe(
-      switchMap(() => {
-        if (this.#loaded) {
-          return of(null);
-        }
-
-        return of(null).pipe(this.#loadAll());
-      }),
-      map(() => id),
-      map((id) => this.contracts().find((c) => c.id === id)),
-      filter((contract): contract is Contract => !!contract),
+    return this.#contractDataService.get(id).pipe(
+      switchMap((contractDto) =>
+        this.#customerDataService.get(contractDto.customer).pipe(
+          map((customer) => ({
+            ...contractDto,
+            customer: {
+              id: customer.id,
+              phone: customer.phone,
+              email: customer.email,
+              label: `${customer.firstName} ${customer.lastName}`,
+            },
+          }))
+        )
+      ),
       tap((contract) =>
         this.#state.update((state) => ({
           ...state,
@@ -109,44 +140,5 @@ export class ContractFacadeService {
         }))
       )
     );
-  }
-
-  #loadAll(): (source$: Observable<void | null>) => Observable<Contract[]> {
-    return (source$) =>
-      source$.pipe(
-        switchMap(() => this.#contractDataService.getAll()),
-        switchMap((contracts) =>
-          this.#customerDataService.getAll().pipe(
-            map((customers) => ({
-              contracts,
-              customers: customers.map((c) => {
-                const customer: Customer = {
-                  id: c.id,
-                  label: `${c.firstName} ${c.lastName}`,
-                  phone: c.phone,
-                  email: c.email,
-                };
-
-                return customer;
-              }),
-            }))
-          )
-        ),
-        map(({ contracts, customers }) =>
-          contracts.map((c) => {
-            const contract: Contract = {
-              ...c,
-              customer: customers.find(
-                (customer) => customer.id === c.customer
-              ),
-            };
-
-            return contract;
-          })
-        ),
-        tap((contracts) =>
-          this.#state.update((state) => ({ ...state, contracts }))
-        )
-      );
   }
 }

@@ -23,6 +23,7 @@ import {
 import { map, Observable, tap } from 'rxjs';
 import { createClaimForm } from '@ng-journal/claim/utils';
 import { Claim, ContractOption } from '@ng-journal/claim/models';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-create',
@@ -55,6 +56,8 @@ import { Claim, ContractOption } from '@ng-journal/claim/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateComponent implements OnInit {
+  readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
   readonly #claimFacade = inject(ClaimFacadeService);
   readonly #messageService = inject(MessageService);
   readonly #contracts$ = toObservable(this.#claimFacade.contracts).pipe(
@@ -111,7 +114,12 @@ export class CreateComponent implements OnInit {
               summary: 'Success',
               detail: 'Claim created successfully',
             });
-          })
+          }),
+          tap((c) =>
+            this.#router.navigate(['../', c.id, 'details'], {
+              relativeTo: this.#route,
+            })
+          )
         )
       );
     }
