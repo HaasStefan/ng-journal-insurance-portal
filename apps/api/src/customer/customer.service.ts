@@ -1,16 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { BehaviorSubject, filter, map } from 'rxjs';
+import { Injectable, Logger } from '@nestjs/common';
+import { BehaviorSubject, map } from 'rxjs';
 import { Customer } from './customer.interface';
 import { faker } from '@faker-js/faker';
+import { customer_uuids } from '../uuids';
 
 @Injectable()
 export class CustomerService {
   readonly #customers = new BehaviorSubject<Customer[]>([]);
 
+  get customers() {
+    return this.#customers.getValue();
+  }
+
   constructor() {
-    for (let i = 0; i < 30; i++) {
+    customer_uuids.forEach((uuid) => {
       const customer: Customer = {
-        id: faker.string.uuid(),
+        id: uuid,
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
         phone: faker.phone.number(),
@@ -23,7 +28,7 @@ export class CustomerService {
         },
       };
       this.add(customer);
-    }
+    });
   }
 
   add(customer: Customer) {
