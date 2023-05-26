@@ -6,7 +6,17 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "--cacheDirectory": "Z:\\nx-cache"
+      }
+    }
+  },
+  "--tasksRunnerOptions": {
+    "default": {
+      "runner": "./tools/task-runners/custom-task-runner",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "remoteDirectory": "./tmp/remote-cache"
       }
     }
   },
