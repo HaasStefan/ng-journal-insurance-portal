@@ -71,10 +71,6 @@ export class SidebarComponent {
       routes: [listMetaData, createMetaData],
     },
     {
-      domain: 'claim',
-      routes: [listMetaData, createMetaData],
-    },
-    {
       domain: 'complaint',
       routes: [listMetaData, createMetaData],
     },

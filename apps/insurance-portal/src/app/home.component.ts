@@ -19,13 +19,13 @@ import { RouterLink } from '@angular/router';
         </ng-journal-card>
       </a>
 
-      <a routerLink="/claim/list" class="no-underline text-white text-4xl">
+      <!--<a routerLink="/claim/list" class="no-underline text-white text-4xl">
         <ng-journal-card
           additionalClasses="surface-700 flex justify-content-center"
         >
           Claims
         </ng-journal-card>
-      </a>
+      </a>-->
 
       <a routerLink="/complaint/list" class="no-underline text-white text-4xl">
         <ng-journal-card

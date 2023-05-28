@@ -1,1 +1,0 @@
-export * from './lib/facades/<%=domainFileName%>-facade.service';

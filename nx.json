@@ -11,15 +11,6 @@
       }
     }
   },
-  "--tasksRunnerOptions": {
-    "default": {
-      "runner": "./tools/task-runners/custom-task-runner",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "remoteDirectory": "./tmp/remote-cache"
-      }
-    }
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],

@@ -21,20 +21,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ng-journal/claim/data-access": ["libs/claim/data-access/src/index.ts"],
-      "@ng-journal/claim/feature-create": [
-        "libs/claim/feature-create/src/index.ts"
-      ],
-      "@ng-journal/claim/feature-details": [
-        "libs/claim/feature-details/src/index.ts"
-      ],
-      "@ng-journal/claim/feature-list": [
-        "libs/claim/feature-list/src/index.ts"
-      ],
-      "@ng-journal/claim/models": ["libs/claim/models/src/index.ts"],
-      "@ng-journal/claim/routes": ["libs/claim/routes/src/index.ts"],
-      "@ng-journal/claim/ui": ["libs/claim/ui/src/index.ts"],
-      "@ng-journal/claim/utils": ["libs/claim/utils/src/index.ts"],
       "@ng-journal/complaint/data-access": [
         "libs/complaint/data-access/src/index.ts"
       ],
@@ -93,7 +79,6 @@
       ],
       "@ng-journal/customer/models": ["libs/customer/models/src/index.ts"],
       "@ng-journal/customer/routes": ["libs/customer/routes/src/index.ts"],
-      "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"],
       "@ng-journal/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@ng-journal/shared/ui-directives": [
         "libs/shared/ui-directives/src/index.ts"
