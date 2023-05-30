@@ -1,4 +1,4 @@
 export interface DataAccessGeneratorSchema {
-  name?: string;
+  name: string;
   domain: string;
 }

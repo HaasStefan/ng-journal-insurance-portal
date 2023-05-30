@@ -49,15 +49,17 @@ function updateConsumerDepConst(tree: Tree, options: NormalizedSchema) {
   updateDepConst(
     tree,
     (depConst: { sourceTag: string; onlyDependOnLibsWithTags: string[] }[]) => {
-      const index = depConst.findIndex((d) => d.sourceTag === `domain:${options.consumer}`);
+      const index = depConst.findIndex(
+        (d) => d.sourceTag === `domain:${options.consumer}`
+      );
 
       if (index && !!depConst[index]) {
         depConst[index] = {
           ...depConst[index],
           onlyDependOnLibsWithTags: [
             ...depConst[index].onlyDependOnLibsWithTags,
-            `domain:${names(options.domain).fileName}/${options.name}`
-          ]
+            `domain:${names(options.domain).fileName}/${options.name}`,
+          ],
         };
       }
     }

@@ -1,7 +1,12 @@
 import { Tree } from '@nrwl/devkit';
 import { checkRuleExists } from './check-rule-exists';
 
-export function updateDepConst(host: Tree, update: (depConst: Array<object>) => void) {
+export function updateDepConst(
+  host: Tree,
+  update: (
+    depConst: { sourceTag: string; onlyDependOnLibsWithTags: string[] }[]
+  ) => void
+) {
   let filePath = 'tslint.json';
   let rule = 'nx-enforce-module-boundaries';
 
@@ -15,7 +20,9 @@ export function updateDepConst(host: Tree, update: (depConst: Array<object>) => 
       rule = '@nx/enforce-module-boundaries';
       console.info('Did not find .eslintrc.json but found .eslintrc');
     } else {
-      console.info('Cannot add linting rules: linting config file does not exist');
+      console.info(
+        'Cannot add linting rules: linting config file does not exist'
+      );
       return;
     }
   }
@@ -35,7 +42,10 @@ export function updateDepConst(host: Tree, update: (depConst: Array<object>) => 
     return;
   }
 
-  const depConst = rules['rules'][rule][1]['depConstraints'] as Array<object>;
+  const depConst = rules['rules'][rule][1]['depConstraints'] as {
+    sourceTag: string;
+    onlyDependOnLibsWithTags: string[];
+  }[];
   update(depConst);
 
   const newText = JSON.stringify(json, undefined, 2);

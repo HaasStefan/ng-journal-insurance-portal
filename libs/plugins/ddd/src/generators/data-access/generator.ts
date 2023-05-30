@@ -11,7 +11,7 @@ function normalizeOptions(
   tree: Tree,
   options: DataAccessGeneratorSchema
 ): NormalizedSchema {
-  const fileName = names(options.name).fileName;
+  const fileName = names(options.name)?.fileName;
   const name =
     fileName === 'data-access'
       ? fileName

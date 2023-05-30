@@ -1,4 +1,4 @@
-export interface ApiGeneratorSchema  {
+export interface ApiGeneratorSchema {
   domain: string;
   name: string;
-};
+}
