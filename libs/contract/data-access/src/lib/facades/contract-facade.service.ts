@@ -1,8 +1,8 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { ContractState } from '../state/contract-state.model';
 import { ContractDataService } from '../data-services/contract-data.service';
-import { filter, map, Observable, of, switchMap, tap } from 'rxjs';
-import { CustomerDataService } from '@ng-journal/customer/api-contract';
+import { filter, map, switchMap, tap } from 'rxjs';
+import { CustomerDataService } from '@ng-journal/customer/data-access';
 import { ContractDto, Contract, Customer } from '@ng-journal/contract/models';
 
 const initialState: Readonly<ContractState> = {

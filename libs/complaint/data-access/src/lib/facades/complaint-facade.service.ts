@@ -7,7 +7,7 @@ import {
   Complaint,
   Customer,
 } from '@ng-journal/complaint/models';
-import { CustomerDataService } from '@ng-journal/customer/api-complaint';
+import { CustomerDataService } from '@ng-journal/customer/data-access';
 
 const initialState: Readonly<ComplaintState> = {
   complaints: [],

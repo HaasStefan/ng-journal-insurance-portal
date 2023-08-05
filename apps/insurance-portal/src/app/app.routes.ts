@@ -15,10 +15,10 @@ export const appRoutes: Route[] = [
     loadChildren: async () =>
       (await import('@ng-journal/contract/routes')).routes,
   },
-  {
-    path: 'claim',
-    loadChildren: async () => (await import('@ng-journal/claim/routes')).routes,
-  },
+  // {
+  //   path: 'claim',
+  //   loadChildren: async () => (await import('@ng-journal/claim/routes')).routes,
+  // },
   {
     path: 'complaint',
     loadChildren: async () =>
