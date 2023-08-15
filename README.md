@@ -12,6 +12,8 @@
 ### Topics
 
 - Angular (version 16)
+- Standalone APIs
+- PrimeNG
 - Nx
 - Nx Generators
 - Enterprise Monorepo Pattern (Improved version)
