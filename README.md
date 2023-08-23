@@ -30,7 +30,7 @@ If you want to extend the workspace with additional domains and libraries, you c
 
 You can run `nx g @ng-journal/ddd:feature list --domain notification` for example, to generate a feature library called `feature-list` inside a new `notification` domain.
 
-If you are not familiar with the patterns used in this repository, I would suggest to check out the resources linked below. Or reach out to me [here](https://www.ng-journal.com/contact) if you want to book an [Nx workshop](https://www.ng-journal.com/workshop).
+If you are not familiar with the patterns used in this repository, I would suggest to check out the resources linked below. Or reach out to me [here](https://www.ng-journal.com/contact) if you want to book an [Nx workshop](https://www.ng-journal.com/workshops/nx-scaling-angular-applications).
 
 ### Resources
 
