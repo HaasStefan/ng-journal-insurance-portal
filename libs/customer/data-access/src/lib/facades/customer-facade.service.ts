@@ -1,7 +1,7 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
 import { CustomerState } from '../state/customer-state.model';
-import { CustomerDataService } from '../data-services/customer-data.service';
 import { tap } from 'rxjs';
+import { CustomerDataService } from '../data-services/customer-data.service';
 
 const initialState: Readonly<CustomerState> = {
   customers: [],

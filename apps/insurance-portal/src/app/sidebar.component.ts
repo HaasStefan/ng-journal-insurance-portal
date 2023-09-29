@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CapitalizePipe } from '@ng-journal/shared/ui-pipes';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
+import { FeatureFlag } from '@ng-journal/shared/utils-feature-flags';
 
 interface RouteMetaData {
   path: string;
@@ -29,24 +31,43 @@ const listMetaData: RouteMetaData = {
 @Component({
   selector: 'ng-journal-sidebar',
   standalone: true,
-  imports: [CommonModule, CapitalizePipe, RouterLink, RouterLinkActive],
+  imports: [
+    CommonModule,
+    CapitalizePipe,
+    RouterLink,
+    RouterLinkActive,
+    FeatureFlagDirective,
+  ],
   template: `<nav>
     <ul *ngFor="let config of routingConfigs" class="list-none w-full p-1">
       <li class="">
         <div class="font-medium">{{ config.domain | capitalize }}</div>
         <hr class="mb-1" />
         <ng-container *ngFor="let route of config.routes">
-          <div
-            [routerLink]="[config.domain, route.path]"
-            [routerLinkActive]="[config.domain, route.path]"
-            #rl="routerLinkActive"
-            class="p-1 mb-1 rounded-md w-full hover:bg-primary-400"
-            [ngClass]="
-              rl.isActive ? 'bg-primary-600 border border-primary-400' : ''
-            "
+          <ng-container
+            *ngJournalFeatureFlag="buildFeatureFlag(config.domain, route.path)"
           >
-            <i [class]="'mr-2 fa-solid fa-' + route.icon"></i> {{ route.label }}
-          </div>
+            <div
+              [routerLink]="
+                config.domain !== 'General'
+                  ? [config.domain, route.path]
+                  : 'home'
+              "
+              [routerLinkActive]="
+                config.domain !== 'General'
+                  ? [config.domain, route.path]
+                  : 'home'
+              "
+              #rl="routerLinkActive"
+              class="p-1 mb-1 rounded-md w-full hover:bg-primary-400"
+              [ngClass]="
+                rl.isActive ? 'bg-primary-600 border border-primary-400' : ''
+              "
+            >
+              <i [class]="'mr-2 fa-solid fa-' + route.icon"></i>
+              {{ route.label }}
+            </div>
+          </ng-container>
         </ng-container>
       </li>
     </ul>
@@ -83,4 +104,9 @@ export class SidebarComponent {
       routes: [listMetaData],
     },
   ];
+
+  buildFeatureFlag(domain: string, path: string): FeatureFlag | null {
+    if (domain === 'General') return null;
+    return `${domain}-${path}` as FeatureFlag;
+  }
 }
