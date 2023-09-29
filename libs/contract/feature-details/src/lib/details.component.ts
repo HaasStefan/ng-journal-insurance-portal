@@ -18,6 +18,7 @@ import {
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
 import { Subject, takeUntil } from 'rxjs';
+import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-details',
@@ -29,13 +30,21 @@ import { Subject, takeUntil } from 'rxjs';
     HyperlinkComponent,
     ContractStatusChipComponent,
     ContractStatusChipStylePipe,
+    FeatureFlagDirective,
   ],
   template: `
-    <ng-journal-header
-      title="Contract Details"
-      [showEditButton]="true"
-      (editButtonClicked)="this.onEditButtonClicked()"
-    />
+    <ng-container
+      *ngJournalFeatureFlag="'contract-edit'; else editContractDisabled"
+    >
+      <ng-journal-header
+        title="Contract Details"
+        [showEditButton]="true"
+        (editButtonClicked)="this.onEditButtonClicked()"
+      />
+    </ng-container>
+    <ng-template #editContractDisabled>
+      <ng-journal-header title="Contract Details" />
+    </ng-template>
 
     <ng-container *ngIf="contract() as contract">
       <ng-journal-card additionalClasses="grid">
@@ -55,10 +64,17 @@ import { Subject, takeUntil } from 'rxjs';
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
           <ng-journal-hyperlink
+            *ngJournalFeatureFlag="
+              'customer-details';
+              else customerDetailsDisabled
+            "
             [route]="['/customer', contract.customer?.id, 'details']"
           >
             {{ contract.customer?.label }}
           </ng-journal-hyperlink>
+          <ng-template #customerDetailsDisabled>
+            {{ contract.customer?.label }}
+          </ng-template>
         </div>
 
         <div class="col-2 font-bold">Phone:</div>

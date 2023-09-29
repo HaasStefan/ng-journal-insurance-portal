@@ -31,6 +31,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '**',
-    redirectTo: 'home',
+    loadComponent: async () =>
+      (await import('./page-not-found.component')).PageNotFoundComponent,
   },
 ];

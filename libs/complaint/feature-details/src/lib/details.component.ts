@@ -14,6 +14,7 @@ import {
   HyperlinkComponent,
 } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
+import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-details',
@@ -24,6 +25,7 @@ import { primeNgModules } from '@ng-journal/shared/utils';
     CardComponent,
     HyperlinkComponent,
     ...primeNgModules,
+    FeatureFlagDirective,
   ],
   template: `<ng-journal-header title="Complaint Details" />
     <ng-container *ngIf="complaint() as complaint">
@@ -31,10 +33,17 @@ import { primeNgModules } from '@ng-journal/shared/utils';
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
           <ng-journal-hyperlink
+            *ngJournalFeatureFlag="
+              'customer-details';
+              else customerDetailsDisabled
+            "
             [route]="['/customer', complaint.customer?.id, 'details']"
           >
             {{ complaint.customer?.label }}
           </ng-journal-hyperlink>
+          <ng-template #customerDetailsDisabled>
+            {{ complaint.customer?.label }}
+          </ng-template>
         </div>
         <div class="col-2 font-bold">Type:</div>
         <div class="col-4">

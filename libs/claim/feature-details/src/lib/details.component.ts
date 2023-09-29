@@ -14,6 +14,7 @@ import {
 } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { Subject, takeUntil } from 'rxjs';
+import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-details',
@@ -24,6 +25,7 @@ import { Subject, takeUntil } from 'rxjs';
     CardComponent,
     HyperlinkComponent,
     ...primeNgModules,
+    FeatureFlagDirective,
   ],
   template: ` <ng-journal-header title="Claim Details" />
     <ng-container *ngIf="claim() as claim">
@@ -52,10 +54,17 @@ import { Subject, takeUntil } from 'rxjs';
         <div class="col-4">
           <ng-container *ngIf="claim.contract.customer; else noCustomer">
             <ng-journal-hyperlink
+              *ngJournalFeatureFlag="
+                'customer-details';
+                else customerDetailsDisabled
+              "
               [route]="['/customer', claim.contract.customer.id, 'details']"
             >
               {{ claim.contract.customer.name }}
             </ng-journal-hyperlink>
+            <ng-template #customerDetailsDisabled>
+              {{ claim.contract.customer.name }}
+            </ng-template>
           </ng-container>
           <ng-template #noCustomer> - </ng-template>
         </div>

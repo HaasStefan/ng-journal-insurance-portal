@@ -26,7 +26,11 @@
               },
               {
                 "sourceTag": "type:routes",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:data-access"]
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:data-access",
+                  "type:utils"
+                ]
               },
               {
                 "sourceTag": "type:api",

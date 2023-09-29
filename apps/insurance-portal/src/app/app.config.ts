@@ -8,6 +8,7 @@ import {
 import { appRoutes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { provideFeatureFlags } from '@ng-journal/shared/data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     provideHttpClient(),
+    provideFeatureFlags(),
     MessageService,
   ],
 };

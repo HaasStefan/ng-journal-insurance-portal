@@ -94,12 +94,18 @@
       "@ng-journal/customer/models": ["libs/customer/models/src/index.ts"],
       "@ng-journal/customer/routes": ["libs/customer/routes/src/index.ts"],
       "@ng-journal/ddd": ["libs/plugins/ddd/src/index.ts"],
+      "@ng-journal/shared/data-access": [
+        "libs/shared/data-access/src/index.ts"
+      ],
       "@ng-journal/shared/ui": ["libs/shared/ui/src/index.ts"],
       "@ng-journal/shared/ui-directives": [
         "libs/shared/ui-directives/src/index.ts"
       ],
       "@ng-journal/shared/ui-pipes": ["libs/shared/ui-pipes/src/index.ts"],
-      "@ng-journal/shared/utils": ["libs/shared/utils/src/index.ts"]
+      "@ng-journal/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@ng-journal/shared/utils-feature-flags": [
+        "libs/shared/utils-feature-flags/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,17 @@
+{
+  "customer-list": true,
+  "customer-details": true,
+
+  "complaint-create": true,
+  "complaint-list": true,
+  "complaint-details": true,
+
+  "contract-edit": true,
+  "contract-create": true,
+  "contract-list": true,
+  "contract-details": true,
+
+  "claim-create": true,
+  "claim-list": true,
+  "claim-details": true
+}
